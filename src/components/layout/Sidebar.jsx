@@ -34,12 +34,39 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       { name: "Organizer Management", path: "/dashboard/organizers", icon: <MdEventAvailable /> },
       { name: "User Management", path: "/dashboard/users", icon: <FaUsers /> },
       { name: "Total Sales & Reports", path: "/dashboard/total-reports", icon: <FaTicketAlt /> },
-      { name: "Profile Settings", path: "/dashboard/settings", icon: <FaCog /> },
+      { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
       { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
     ];
   }
 
-  // Similarly for organizer and user ...
+  if (role === "organizer") {
+    sidebarRoutes = [
+      { name: "Dashboard Overview", path: "/organizer-dashboard", icon: <FaHome /> },
+      { name: "Add Event", path: "/dashboard/add-event", icon: <MdEventNote /> },
+      { name: "My Events", path: "/dashboard/my-events", icon: <MdEvent /> },
+      { name: "Ticket Management", path: "/dashboard/tickets-management", icon: <FaTicketAlt /> },
+      { name: "Ticket Sales & Reports", path: "/dashboard/my-reports", icon: <FaTicketAlt /> },
+      { name: "Event Calendar", path: "/dashboard/event-calendar", icon: <FaCalendarAlt /> },
+      { name: "Attendee Management", path: "/dashboard/attendees", icon: <FaUsers /> },
+      { name: "Reviews & Ratings", path: "/dashboard/reviews", icon: <MdReviews /> },
+      { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
+      { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
+    ];
+  }
+
+  if (role === "user") {
+    sidebarRoutes = [
+      { name: "Dashboard Overview", path: "/user-dashboard", icon: <FaHome /> },
+      { name: "Event Discovery", path: "/dashboard/discovery", icon: <MdEventAvailable /> },
+      { name: "Ticket Management", path: "/dashboard/my-tickets", icon: <FaTicketAlt /> },
+      { name: "Reviews & Ratings", path: "/dashboard/my-reviews", icon: <MdReviews /> },
+      { name: "Event Calendar", path: "/dashboard/my-calendar", icon: <FaCalendarAlt /> },
+      { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
+      { name: "Notifications", path: "/dashboard/notifications", icon: <MdEventNote /> },
+      { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
+    ];
+  }
+
 
   return (
     <>
