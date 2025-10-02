@@ -1,16 +1,20 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Gabriela, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const gabriela = Gabriela({
+  variable: "--font-gabriela",
   subsets: ["latin"],
+  weight: "400"
 });
 
 export const metadata = {
@@ -22,14 +26,20 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${gabriela.variable} ${poppins.variable} antialiased`}
       >
-        {/* Navbar */}
-        <Navbar />
-        {/* Main Content */}
-        <main>{children}</main>
-        {/* Footer */}
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange>
+          {/* Navbar */}
+          <Navbar />
+          {/* Main Content */}
+          <main>{children}</main>
+          {/* Footer */}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
