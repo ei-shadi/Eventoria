@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import Logo from "../../../public/images/Logo.png";
 import { ModeToggle } from "../ui/ToggleButton";
 import Button from "../shared/Button";
-// Testing Phase
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
