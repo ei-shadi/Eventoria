@@ -1,11 +1,24 @@
-import React from 'react';
+'use client'
+import Sidebar from "@/components/layout/Sidebar";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
-const Layout = () => {
+export default function DashboardLayout({ children }) {
   return (
     <div>
-      This is layout for dashboard
+      <section
+      className="flex "
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange>
+          <Sidebar/>
+          {/* Main Content */}
+          <main>{children}</main>
+          
+        </ThemeProvider>
+      </section>
     </div>
   );
-};
-
-export default Layout;
+}
