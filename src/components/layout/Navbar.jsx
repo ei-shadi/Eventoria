@@ -57,7 +57,7 @@ const Navbar = () => {
         {/* Desktop Right Side: Sign Up + Dark Mode Toggle */}
         <div className="items-center hidden space-x-8 lg:flex">
           <ModeToggle />
-          <Link href="/auth/login">
+          <Link href="/login">
             <Button label="Sign Up" />
           </Link>
         </div>
@@ -142,7 +142,7 @@ const Navbar = () => {
 
                 {/* Sign Up Button */}
                 <Link
-                  href="/auth/login"
+                  href="/login"
                   aria-label="Sign up"
                   title="Sign up"
                   onClick={() => setIsMenuOpen(false)}
