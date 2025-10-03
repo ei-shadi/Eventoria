@@ -41,6 +41,7 @@ const AddEvent = () => {
     const finalFormData = {
       ...data,
       coverImage: eventCoverImage,
+      status:'pending'
     };
     console.log("Form submitted:", data, "this is full data", finalFormData);
     // Add API call to submit the form data
