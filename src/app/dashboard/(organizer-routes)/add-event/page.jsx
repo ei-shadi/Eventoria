@@ -38,22 +38,11 @@ const AddEvent = () => {
   ];
 
   const onSubmit = (data) => {
-    // Handle file separately since it's not directly managed by react-hook-form
-    const formData = new FormData();
-
-    // Append all form data
-    Object.keys(data).forEach((key) => {
-      if (key === "eventCategory") {
-        formData.append(key, JSON.stringify(data[key]));
-      } else {
-        formData.append(key, data[key]);
-      }
-    });
-
-    // Append file if it exists Cover image start here
-    // Append file if it exists Cover image ends here
-
-    console.log("Form submitted:", data);
+    const finalFormData = {
+      ...data,
+      coverImage: eventCoverImage,
+    };
+    console.log("Form submitted:", data, "this is full data", finalFormData);
     // Add API call to submit the form data
   };
   const handleImageUpload = async (e) => {
@@ -69,17 +58,19 @@ const AddEvent = () => {
     const res = await axios.post(imagUploadUrl, formData);
     setEventCoverImage(res.data.data.url);
   };
-  
+
   const handleRemoveImage = () => {
     setPreviewUrl(null);
     setEventCoverImage("");
     // Reset the file input
-    const fileInput = document.querySelector('input[type="file"][name="photo"]');
+    const fileInput = document.querySelector(
+      'input[type="file"][name="photo"]'
+    );
     if (fileInput) {
       fileInput.value = "";
     }
   };
-  console.log(eventCoverImage,'this is event cover image here ')
+  console.log(eventCoverImage, "this is event cover image here ");
   return (
     <div className="p-2 lg:p-6">
       <h1 className="text-2xl font-bold mb-6">Add Event</h1>
@@ -275,9 +266,9 @@ const AddEvent = () => {
                       <button
                         type="button"
                         onClick={handleRemoveImage}
-                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors cursor-pointer"
                       >
-                        <IoMdClose size={16} />
+                        <IoMdClose size={16} className="cursor-pointer" />
                       </button>
                     </div>
                   ) : (
