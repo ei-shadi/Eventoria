@@ -80,7 +80,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static top-0 left-0 w-64 h-full z-50 
+        className={`fixed lg:static top-0 left-0 w-64 h-full z-50 font-gabriela
         bg-white dark:bg-gray-900 
         text-gray-800 dark:text-gray-200 
         shadow-lg border-r dark:border-gray-800
@@ -104,7 +104,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
           href="/"
           aria-label="Company"
           title="Company"
-          className="inline-flex items-center"
+          className="lg:inline-flex items-center hidden "
         >
           <Image src={Logo} alt="logo" className="w-12 md:w-15" />
           <h3 className="ml-2 text-xl md:text-2xl font-bold tracking-wide text-gray-800 dark:text-gray-100 font-gabriela">
