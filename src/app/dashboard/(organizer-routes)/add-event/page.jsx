@@ -1,11 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import { Button } from "@/components/ui/button";
 import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
+import { IoMdClose } from "react-icons/io";
 
 const AddEvent = () => {
+  const [eventCoverImage, setEventCoverImage] = useState("");
+  const [previewUrl, setPreviewUrl] = useState(null);
   const {
     register,
     handleSubmit,
@@ -46,16 +50,38 @@ const AddEvent = () => {
       }
     });
 
-    // Append file if it exists Cover image start here 
-    // Append file if it exists Cover image ends here 
-    
+    // Append file if it exists Cover image start here
+    // Append file if it exists Cover image ends here
 
     console.log("Form submitted:", data);
     // Add API call to submit the form data
   };
+  const handleImageUpload = async (e) => {
+    const image = e.target.files[0];
+    if (image) {
+      setPreviewUrl(URL.createObjectURL(image));
+    }
+    const formData = new FormData();
+    formData.append("image", image);
 
+    const imagUploadUrl = `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_KEY}`;
+
+    const res = await axios.post(imagUploadUrl, formData);
+    setEventCoverImage(res.data.data.url);
+  };
+  
+  const handleRemoveImage = () => {
+    setPreviewUrl(null);
+    setEventCoverImage("");
+    // Reset the file input
+    const fileInput = document.querySelector('input[type="file"][name="photo"]');
+    if (fileInput) {
+      fileInput.value = "";
+    }
+  };
+  console.log(eventCoverImage,'this is event cover image here ')
   return (
-    <div className="p-6">
+    <div className="p-2 lg:p-6">
       <h1 className="text-2xl font-bold mb-6">Add Event</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         {/* Event Details */}
@@ -128,6 +154,7 @@ const AddEvent = () => {
                 )}
               </div>
             </div>
+            {/* start date and end date of event here  */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-1">
@@ -226,17 +253,54 @@ const AddEvent = () => {
           <h2 className="text-xl font-semibold mb-4">Media & Description</h2>
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/*event cover  Image Upload here*/}
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Cover Image
-                </label>
-                <input
-                  type="file"
-                  id="coverImage"
-                  className="w-full p-2 border border-border rounded-md bg-background text-foreground"
-                  accept="image/*"
-                />
+                <div>
+                  {previewUrl ? (
+                    <div
+                      className="w-full rounded-lg border p-2 flex items-center gap-3 relative"
+                      style={{
+                        background: "var(--color-light-secondary)",
+                        borderColor: "rgba(0,0,0,0.12)",
+                      }}
+                    >
+                      <img
+                        src={previewUrl}
+                        alt="Selected preview"
+                        className="w-16 h-16 object-cover rounded-lg"
+                      />
+                      <span className="text-xs opacity-80">
+                        Preview of your selected image
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleRemoveImage}
+                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                      >
+                        <IoMdClose size={16} />
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <label
+                        className="text-[#685f78] block mb-1 font-medium"
+                        htmlFor="profileImage"
+                      >
+                        Cover Image
+                      </label>
+                      <input
+                        type="file"
+                        name="photo"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        className="w-full border border-[#e9ecef] rounded px-3 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+                      />
+                    </>
+                  )}
+                </div>
               </div>
+
+              {/* description here */}
               <div>
                 <label className="block text-sm font-medium mb-1">
                   Description
@@ -258,8 +322,8 @@ const AddEvent = () => {
           </div>
         </div>
 
-        <div className="flex justify-end">
-          <Button type="submit" className="px-6 py-2">
+        <div className="flex justify-end ">
+          <Button type="submit" className="px-6 py-2 w-full lg:w-auto">
             Create Event
           </Button>
         </div>
