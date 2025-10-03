@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="font-gabriela">
       This Footer
     </footer>
   );
