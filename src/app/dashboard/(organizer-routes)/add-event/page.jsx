@@ -3,19 +3,29 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import { Button } from "@/components/ui/button";
+import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
+import { IoMdClose } from "react-icons/io";
 
 const AddEvent = () => {
-  const [formData, setFormData] = useState({
-    eventName: "",
-    eventCategory: null,
-    startDateTime: "",
-    endDateTime: "",
-    venueName: "",
-    address: "",
-    country: "",
-    coverImage: null,
-    description: "",
-    tickets: [{ type: null, price: "", quantity: "" }],
+  const [eventCoverImage, setEventCoverImage] = useState("");
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      eventName: "",
+      eventCategory: null,
+      startDateTime: "",
+      endDateTime: "",
+      venueName: "",
+      address: "",
+      country: "",
+      description: "",
+    },
   });
 
   const eventCategories = [
@@ -27,323 +37,286 @@ const AddEvent = () => {
     { value: "other", label: "Other" },
   ];
 
-  const ticketTypes = [
-    { value: "standard", label: "Standard" },
-    { value: "vip", label: "VIP" },
-    { value: "early_bird", label: "Early Bird" },
-    { value: "student", label: "Student" },
-    { value: "group", label: "Group" },
-  ];
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSelectChange = (selectedOption, name) => {
-    setFormData({ ...formData, [name]: selectedOption });
-  };
-
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, coverImage: e.target.files[0] });
-  };
-
-  const handleTicketChange = (index, field, value) => {
-    const updatedTickets = [...formData.tickets];
-    updatedTickets[index][field] = value;
-    setFormData({ ...formData, tickets: updatedTickets });
-  };
-
-  const addTicket = () => {
-    setFormData({
-      ...formData,
-      tickets: [...formData.tickets, { type: null, price: "", quantity: "" }],
-    });
-  };
-
-  const removeTicket = (index) => {
-    const updatedTickets = [...formData.tickets];
-    updatedTickets.splice(index, 1);
-    setFormData({ ...formData, tickets: updatedTickets });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
+  const onSubmit = (data) => {
+    const finalFormData = {
+      ...data,
+      coverImage: eventCoverImage,
+      status:'pending'
+    };
+    console.log("Form submitted:", data, "this is full data", finalFormData);
     // Add API call to submit the form data
   };
+  const handleImageUpload = async (e) => {
+    const image = e.target.files[0];
+    if (image) {
+      setPreviewUrl(URL.createObjectURL(image));
+    }
+    const formData = new FormData();
+    formData.append("image", image);
 
+    const imagUploadUrl = `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_KEY}`;
+
+    const res = await axios.post(imagUploadUrl, formData);
+    setEventCoverImage(res.data.data.url);
+  };
+
+  const handleRemoveImage = () => {
+    setPreviewUrl(null);
+    setEventCoverImage("");
+    // Reset the file input
+    const fileInput = document.querySelector(
+      'input[type="file"][name="photo"]'
+    );
+    if (fileInput) {
+      fileInput.value = "";
+    }
+  };
+  console.log(eventCoverImage, "this is event cover image here ");
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Add Event</h1>
-
-      <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="p-2 lg:p-6">
+      <h1 className="text-2xl font-bold mb-6">Add Event</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         {/* Event Details */}
-        <div className="bg-card rounded-lg p-6 shadow-sm border">
+        <div className="bg-card dark:bg-card p-6 rounded-lg shadow-sm border border-border">
           <h2 className="text-xl font-semibold mb-4">Event Details</h2>
-
           <div className="space-y-4">
-            <div>
-              <label
-                htmlFor="eventName"
-                className="block text-sm font-medium mb-1"
-              >
-                Event Name
-              </label>
-              <input
-                type="text"
-                id="eventName"
-                name="eventName"
-                value={formData.eventName}
-                onChange={handleInputChange}
-                className="w-full rounded-md border border-input bg-background px-3 py-2"
-                required
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="eventCategory"
-                className="block text-sm font-medium mb-1"
-              >
-                Event Category/Type
-              </label>
-              <Select
-                id="eventCategory"
-                options={eventCategories}
-                value={formData.eventCategory}
-                onChange={(option) =>
-                  handleSelectChange(option, "eventCategory")
-                }
-                className="react-select-container"
-                classNamePrefix="react-select"
-                required
-              />
-            </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label
-                  htmlFor="startDateTime"
-                  className="block text-sm font-medium mb-1"
-                >
+                <label className="block text-sm font-medium mb-1">
+                  Event Name
+                </label>
+                <input
+                  type="text"
+                  {...register("eventName", {
+                    required: "Event name is required",
+                  })}
+                  className="w-full p-2 border border-border rounded-md bg-background text-foreground"
+                />
+                {errors.eventName && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.eventName.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Event Category
+                </label>
+                <Controller
+                  name="eventCategory"
+                  control={control}
+                  rules={{ required: "Event category is required" }}
+                  render={({ field }) => (
+                    <Select
+                      options={eventCategories}
+                      value={field.value}
+                      onChange={field.onChange}
+                      className="react-select-container"
+                      classNamePrefix="react-select"
+                      placeholder="Select category"
+                      styles={{
+                        control: (base) => ({
+                          ...base,
+                          backgroundColor: "var(--background)",
+                          borderColor: "var(--border)",
+                        }),
+                        menu: (base) => ({
+                          ...base,
+                          backgroundColor: "var(--background)",
+                        }),
+                        option: (base, state) => ({
+                          ...base,
+                          backgroundColor: state.isFocused
+                            ? "var(--accent)"
+                            : "var(--background)",
+                          color: "var(--foreground)",
+                        }),
+                        singleValue: (base) => ({
+                          ...base,
+                          color: "var(--foreground)",
+                        }),
+                      }}
+                    />
+                  )}
+                />
+                {errors.eventCategory && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.eventCategory.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            {/* start date and end date of event here  */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">
                   Start Date & Time
                 </label>
                 <input
                   type="datetime-local"
-                  id="startDateTime"
-                  name="startDateTime"
-                  value={formData.startDateTime}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-input bg-background px-3 py-2"
-                  required
+                  {...register("startDateTime", {
+                    required: "Start date & time is required",
+                  })}
+                  className="w-full p-2 border border-border rounded-md bg-background text-foreground"
                 />
+                {errors.startDateTime && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.startDateTime.message}
+                  </p>
+                )}
               </div>
-
               <div>
-                <label
-                  htmlFor="endDateTime"
-                  className="block text-sm font-medium mb-1"
-                >
+                <label className="block text-sm font-medium mb-1">
                   End Date & Time
                 </label>
                 <input
                   type="datetime-local"
-                  id="endDateTime"
-                  name="endDateTime"
-                  value={formData.endDateTime}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-input bg-background px-3 py-2"
-                  required
+                  {...register("endDateTime", {
+                    required: "End date & time is required",
+                  })}
+                  className="w-full p-2 border border-border rounded-md bg-background text-foreground"
                 />
+                {errors.endDateTime && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.endDateTime.message}
+                  </p>
+                )}
               </div>
             </div>
           </div>
         </div>
 
         {/* Venue Information */}
-        <div className="bg-card rounded-lg p-6 shadow-sm border">
+        <div className="bg-card dark:bg-card p-6 rounded-lg shadow-sm border border-border">
           <h2 className="text-xl font-semibold mb-4">Venue Information</h2>
-
           <div className="space-y-4">
-            <div>
-              <label
-                htmlFor="venueName"
-                className="block text-sm font-medium mb-1"
-              >
-                Venue Name
-              </label>
-              <input
-                type="text"
-                id="venueName"
-                name="venueName"
-                value={formData.venueName}
-                onChange={handleInputChange}
-                className="w-full rounded-md border border-input bg-background px-3 py-2"
-                required
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="address"
-                className="block text-sm font-medium mb-1"
-              >
-                Address / Street
-              </label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleInputChange}
-                className="w-full rounded-md border border-input bg-background px-3 py-2"
-                required
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="country"
-                className="block text-sm font-medium mb-1"
-              >
-                Country
-              </label>
-              <input
-                type="text"
-                id="country"
-                name="country"
-                value={formData.country}
-                onChange={handleInputChange}
-                className="w-full rounded-md border border-input bg-background px-3 py-2"
-                required
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Event Media & Description */}
-        <div className="bg-card rounded-lg p-6 shadow-sm border">
-          <h2 className="text-xl font-semibold mb-4">Media & Description</h2>
-
-          <div className="space-y-4">
-            <div>
-              <label
-                htmlFor="coverImage"
-                className="block text-sm font-medium mb-1"
-              >
-                Cover Image
-              </label>
-              <input
-                type="file"
-                id="coverImage"
-                name="coverImage"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="w-full rounded-md border border-input bg-background px-3 py-2"
-                required
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="description"
-                className="block text-sm font-medium mb-1"
-              >
-                Description
-              </label>
-              <textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                rows={5}
-                className="w-full rounded-md border border-input bg-background px-3 py-2"
-                required
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Ticket Information */}
-        <div className="bg-card rounded-lg p-6 shadow-sm border">
-          <h2 className="text-xl font-semibold mb-4">Ticket Information</h2>
-
-          <div className="space-y-4">
-            {formData.tickets.map((ticket, index) => (
-              <div
-                key={index}
-                className="flex flex-wrap items-end gap-4 pb-4 border-b"
-              >
-                <div className="flex-1 min-w-[200px]">
-                  <label className="block text-sm font-medium mb-1">
-                    Ticket Type
-                  </label>
-                  <Select
-                    options={ticketTypes}
-                    value={ticket.type}
-                    onChange={(option) =>
-                      handleTicketChange(index, "type", option)
-                    }
-                    className="react-select-container"
-                    classNamePrefix="react-select"
-                  />
-                </div>
-
-                <div className="flex-1 min-w-[150px]">
-                  <label className="block text-sm font-medium mb-1">
-                    Price
-                  </label>
-                  <input
-                    type="number"
-                    value={ticket.price}
-                    onChange={(e) =>
-                      handleTicketChange(index, "price", e.target.value)
-                    }
-                    className="w-full rounded-md border border-input bg-background px-3 py-2"
-                    min="0"
-                    step="0.01"
-                  />
-                </div>
-
-                <div className="flex-1 min-w-[150px]">
-                  <label className="block text-sm font-medium mb-1">
-                    Quantity
-                  </label>
-                  <input
-                    type="number"
-                    value={ticket.quantity}
-                    onChange={(e) =>
-                      handleTicketChange(index, "quantity", e.target.value)
-                    }
-                    className="w-full rounded-md border border-input bg-background px-3 py-2"
-                    min="1"
-                  />
-                </div>
-
-                {formData.tickets.length > 1 && (
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    onClick={() => removeTicket(index)}
-                    className="mb-0"
-                  >
-                    Remove
-                  </Button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Venue Name
+                </label>
+                <input
+                  type="text"
+                  {...register("venueName", {
+                    required: "Venue name is required",
+                  })}
+                  className="w-full p-2 border border-border rounded-md bg-background text-foreground"
+                />
+                {errors.venueName && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.venueName.message}
+                  </p>
                 )}
               </div>
-            ))}
-
-            <Button type="button" variant="outline" onClick={addTicket}>
-              Add Ticket
-            </Button>
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Address/Street
+                </label>
+                <input
+                  type="text"
+                  {...register("address", { required: "Address is required" })}
+                  className="w-full p-2 border border-border rounded-md bg-background text-foreground"
+                />
+                {errors.address && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.address.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Country</label>
+              <input
+                type="text"
+                {...register("country", { required: "Country is required" })}
+                className="w-full p-2 border border-border rounded-md bg-background text-foreground"
+              />
+              {errors.country && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.country.message}
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Submit Button */}
-        <div className="flex justify-end">
-          <Button type="submit" className="px-8">
-            Submit Event
+        {/* Media & Description */}
+        <div className="bg-card dark:bg-card p-6 rounded-lg shadow-sm border border-border">
+          <h2 className="text-xl font-semibold mb-4">Media & Description</h2>
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/*event cover  Image Upload here*/}
+              <div>
+                <div>
+                  {previewUrl ? (
+                    <div
+                      className="w-full rounded-lg border p-2 flex items-center gap-3 relative"
+                      style={{
+                        background: "var(--color-light-secondary)",
+                        borderColor: "rgba(0,0,0,0.12)",
+                      }}
+                    >
+                      <img
+                        src={previewUrl}
+                        alt="Selected preview"
+                        className="w-16 h-16 object-cover rounded-lg"
+                      />
+                      <span className="text-xs opacity-80">
+                        Preview of your selected image
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleRemoveImage}
+                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors cursor-pointer"
+                      >
+                        <IoMdClose size={16} className="cursor-pointer" />
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <label
+                        className="text-[#685f78] block mb-1 font-medium"
+                        htmlFor="profileImage"
+                      >
+                        Cover Image
+                      </label>
+                      <input
+                        type="file"
+                        name="photo"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        className="w-full border border-[#e9ecef] rounded px-3 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+                      />
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* description here */}
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Description
+                </label>
+                <textarea
+                  {...register("description", {
+                    required: "Description is required",
+                  })}
+                  rows="4"
+                  className="w-full p-2 border border-border rounded-md bg-background text-foreground"
+                ></textarea>
+                {errors.description && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.description.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-end ">
+          <Button type="submit" className="px-6 py-2 w-full lg:w-auto">
+            Create Event
           </Button>
         </div>
       </form>
