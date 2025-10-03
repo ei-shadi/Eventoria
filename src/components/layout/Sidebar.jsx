@@ -22,7 +22,7 @@ import Image from "next/image";
 
 
 export default function Sidebar({ isOpen, setIsOpen }) {
-  const role = "organizer"; // later dynamic
+  const role = "admin"; // later dynamic
   const pathname = usePathname();
 
   let sidebarRoutes = [];
