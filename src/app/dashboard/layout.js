@@ -12,9 +12,12 @@ export default function DashboardLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-full bg-gray-100 dark:bg-gray-800">
+    <div className="flex min-h-full bg-gray-100 dark:bg-gray-800 ">
       {/* Sidebar */}
+      
+
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+    
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-h-screen">
@@ -39,7 +42,7 @@ export default function DashboardLayout({ children }) {
         </div>
 
         {/* Page Content */}
-        <main className="flex-1 p-4 text-gray-900 dark:text-gray-100 overflow-y-auto font-gabriela">
+        <main className="max-h-screen flex-1 p-4 text-gray-900 dark:text-gray-100 overflow-y-auto font-gabriela">
           {children}
         </main>
       </div>
