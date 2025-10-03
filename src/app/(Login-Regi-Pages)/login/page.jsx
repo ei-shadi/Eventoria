@@ -1,11 +1,15 @@
 // app/login/page.js
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function LoginPage() {
+  const { data: session, status } = useSession();
+
+  console.log(session);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -57,7 +61,7 @@ export default function LoginPage() {
         {/* 6. Google Button: Dark Mode (No major change needed, but added hover) */}
         <button
           onClick={() => signIn("google", { callbackUrl: "/" })}
-          className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded transition-colors"
+          className="w-full bg-green-600 hover:bg-green-800 text-white py-2 rounded transition-colors"
         >
           Sign in with Google
         </button>
