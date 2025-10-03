@@ -3,13 +3,14 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import { Button } from "@/components/ui/button";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
 import axios from "axios";
 import { IoMdClose } from "react-icons/io";
 
 const AddEvent = () => {
   const [eventCoverImage, setEventCoverImage] = useState("");
   const [previewUrl, setPreviewUrl] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -25,9 +26,17 @@ const AddEvent = () => {
       address: "",
       country: "",
       description: "",
+      tickets: [{ type: "", price: "", availability: "" }],
     },
   });
-
+  const {
+    fields: ticketFields,
+    append: appendTicket,
+    remove: removeTicket,
+  } = useFieldArray({
+    control,
+    name: "tickets",
+  });
   const eventCategories = [
     { value: "conference", label: "Conference" },
     { value: "workshop", label: "Workshop" },
@@ -41,7 +50,7 @@ const AddEvent = () => {
     const finalFormData = {
       ...data,
       coverImage: eventCoverImage,
-      status:'pending'
+      status: "pending",
     };
     console.log("Form submitted:", data, "this is full data", finalFormData);
     // Add API call to submit the form data
@@ -313,7 +322,126 @@ const AddEvent = () => {
             </div>
           </div>
         </div>
+        {/* add ticket field start */}
+        {/* Tickets Section */}
+        <div className="bg-card dark:bg-card p-6 rounded-lg shadow-sm border border-border">
+          <h2 className="text-xl font-semibold mb-4">Tickets</h2>
 
+          <div className="space-y-4">
+            {ticketFields.map((field, index) => (
+              <div
+                key={field.id}
+                className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end"
+              >
+                {/* Ticket Type */}
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    Ticket Type
+                  </label>
+                  <Controller
+                    control={control}
+                    name={`tickets.${index}.type`}
+                    rules={{ required: "Ticket type is required" }}
+                    render={({ field: { onChange, value } }) => (
+                      <Select
+                        options={[
+                          { value: "vip", label: "VIP" },
+                          { value: "regular", label: "Regular" },
+                          { value: "early-bird", label: "Early Bird" },
+                        ]}
+                        value={
+                          value
+                            ? {
+                                value,
+                                label:
+                                  value.charAt(0).toUpperCase() +
+                                  value.slice(1),
+                              }
+                            : null
+                        }
+                        onChange={(selected) => onChange(selected?.value)}
+                        placeholder="Select type"
+                        className="react-select-container"
+                        classNamePrefix="react-select"
+                      />
+                    )}
+                  />
+                  {errors.tickets?.[index]?.type && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.tickets[index].type.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Price */}
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    Price
+                  </label>
+                  <input
+                    type="number"
+                    {...register(`tickets.${index}.price`, {
+                      required: "Price is required",
+                    })}
+                    className="w-full p-2 border border-border rounded-md bg-background text-foreground"
+                    placeholder="Enter price"
+                  />
+                  {errors.tickets?.[index]?.price && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.tickets[index].price.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Availability */}
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    Availability
+                  </label>
+                  <input
+                    type="number"
+                    {...register(`tickets.${index}.availability`, {
+                      required: "Availability is required",
+                    })}
+                    className="w-full p-2 border border-border rounded-md bg-background text-foreground"
+                    placeholder="No. of tickets"
+                  />
+                  {errors.tickets?.[index]?.availability && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.tickets[index].availability.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Remove Ticket Button */}
+                <div className="flex items-center">
+                  {ticketFields.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeTicket(index)}
+                      className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+
+            {/* Add Ticket Button */}
+            <button
+              type="button"
+              onClick={() =>
+                appendTicket({ type: "", price: "", availability: "" })
+              }
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer mt-2"
+            >
+              Add Ticket
+            </button>
+          </div>
+        </div>
+
+        {/* add ticket field end */}
         <div className="flex justify-end ">
           <Button type="submit" className="px-6 py-2 w-full lg:w-auto">
             Create Event
