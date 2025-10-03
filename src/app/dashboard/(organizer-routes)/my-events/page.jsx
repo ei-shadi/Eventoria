@@ -16,7 +16,7 @@ const formatDate = (dateString) => {
 
 const MyEvents = () => {
   return (
-    <div className="p-6">
+    <div className="p-3 md:p-6">
       <h1 className="text-xl font-bold mb-6">My Events</h1>
       <EventCardList />
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Calendar, MapPin } from "lucide-react";
 import { format } from "date-fns";
+import StatusUpdateModal from "../StatusUpdateModal/StatusUpdateModal";
 
 // আপনার ফেক ডাটা
 const myEventsData = [
@@ -131,9 +132,11 @@ const EventCardList = () => {
                 Edit
               </button>
               {event.approvalStatus === "approved" && (
-                <button className="px-3 py-1 bg-purple-500 text-white rounded hover:bg-purple-600 text-sm cursor-pointer">
-                  Update Status
-                </button>
+                <StatusUpdateModal>
+                  <button className="px-3 py-1 bg-purple-500 text-white rounded hover:bg-purple-600 text-sm cursor-pointer">
+                    Update Status
+                  </button>
+                </StatusUpdateModal>
               )}
             </div>
           </div>
