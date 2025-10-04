@@ -19,9 +19,13 @@ import {
 } from "react-icons/md";
 import Logo from "../../../public/images/Logo.png";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 
 export default function Sidebar({ isOpen, setIsOpen }) {
+
+   const { data: session, status } = useSession();
+   console.log("role",session?.role);
   const role = "admin"; // later dynamic
   const pathname = usePathname();
 
