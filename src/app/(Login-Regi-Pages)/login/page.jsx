@@ -8,7 +8,8 @@ import { useState } from "react";
 
 export default function LoginPage() {
  // Removed useSession since it's not strictly necessary for the login form logic
- // const { data: session, status } = useSession();
+ const { data: session, status } = useSession();
+ console.log(session);
 
  const [email, setEmail] = useState("");
  const [password, setPassword] = useState("");
@@ -86,7 +87,7 @@ export default function LoginPage() {
     </button>
 
     <p className="text-center mt-5">
-     New in jobPortal?
+     New in Eventoria?
      <Link
       href={"/register"}
       className="underline text-blue-700 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300"
