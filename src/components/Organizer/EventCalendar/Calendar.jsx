@@ -1,15 +1,12 @@
 "use client";
 
-import React from "react";
-import { Calendar as BigCalendar, dateFnsLocalizer } from "react-big-calendar";
+import React, { useState } from "react";
+import { Calendar, dateFnsLocalizer, Views } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import enUS from "date-fns/locale/en-US";
 
-// Setup date-fns localizer
-const locales = {
-  "en-US": enUS,
-};
+const locales = { "en-US": enUS };
 
 const localizer = dateFnsLocalizer({
   format,
@@ -19,64 +16,126 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-// Dummy events data based on your form structure
-const events = [
+// Helper: Convert string to Bangladesh local Date
+const bdDateFromString = (dateString) => {
+  const bdString = new Date(dateString).toLocaleString("en-US", {
+    timeZone: "Asia/Dhaka",
+  });
+  return new Date(bdString);
+};
+
+// Convert form-like event to calendar event
+const convertFormEventToCalendarEvent = (formEvent) => ({
+  id: Math.random(),
+  title: formEvent.eventName,
+  start: bdDateFromString(formEvent.startDateTime),
+  end: bdDateFromString(formEvent.endDateTime),
+  category: formEvent.eventCategory.label,
+});
+
+// Dummy data (form structure)
+const dummyEvents = [
   {
-    id: 1,
-    title: "Intel Seminar",
-    start: new Date("2025-10-15T17:16"),
-    end: new Date("2025-10-25T18:16"),
-    category: "Seminar",
+    eventName: "Summer Music Festival",
+    eventCategory: { value: "concert", label: "Concert" },
+    startDateTime: "2025-11-05T18:00",
+    endDateTime: "2025-11-05T22:00",
+    venueName: "Madison Square Garden",
+    address: "New York, USA",
+    country: "USA",
+    description: "A night full of live music with top artists performing.",
+    coverImage: "https://i.ibb.co/KcdTCDv3/event-image-1.jpg",
+    organizerEmail: "organizer@example.com",
+    approvalStatus: "pending",
+    eventStatus: "cancelled",
   },
   {
-    id: 2,
-    title: "Summer Music Festival",
-    start: new Date("2025-10-10T10:00"),
-    end: new Date("2025-10-12T18:00"),
-    category: "Concert",
+    eventName: "Tech Innovators Summit",
+    eventCategory: { value: "conference", label: "Conference" },
+    startDateTime: "2025-11-10T10:00",
+    endDateTime: "2025-11-10T16:00",
+    venueName: "Bangabandhu International Conference Center",
+    address: "Dhaka, Bangladesh",
+    country: "Bangladesh",
+    description: "Annual conference for tech enthusiasts and startups.",
+    coverImage: "https://i.ibb.co/YZxj4Z9/event-image-2.jpg",
+    organizerEmail: "tech@organizer.com",
+    approvalStatus: "approved",
+    eventStatus: "upcoming",
   },
   {
-    id: 3,
-    title: "Tech Innovators Summit",
-    start: new Date("2025-10-20T09:00"),
-    end: new Date("2025-10-21T17:00"),
-    category: "Conference",
+    eventName: "Art Expo",
+    eventCategory: { value: "exhibition", label: "Exhibition" },
+    startDateTime: "2025-10-15T09:00",
+    endDateTime: "2025-11-15T17:00",
+    venueName: "Dhaka Art Gallery",
+    address: "Dhaka, Bangladesh",
+    country: "Bangladesh",
+    description: "Showcasing local artists and their creative artworks.",
+    coverImage: "https://i.ibb.co/4dXJwWQ/event-image-3.jpg",
+    organizerEmail: "art@organizer.com",
+    approvalStatus: "approved",
+    eventStatus: "upcoming",
   },
 ];
 
-// Optional: function to color-code events by category
-const eventStyleGetter = (event) => {
-  let backgroundColor = "#60a5fa"; // default
+const EventCalendarShow = () => {
+  const initialEvents = dummyEvents.map(convertFormEventToCalendarEvent);
+  const [filteredEvents] = useState(initialEvents);
 
-  if (event.category === "Concert") backgroundColor = "#f87171";
-  else if (event.category === "Seminar") backgroundColor = "#34d399";
-  else if (event.category === "Conference") backgroundColor = "#fbbf24";
+  // Event color coding
+  const eventStyleGetter = (event) => {
+    let bg = "#ff0000"; // default
+    if (event.category === "Concert") bg = "#f87171";
+    else if (event.category === "Seminar") bg = "#34d399";
+    else if (event.category === "Conference") bg = "#fbbf24";
+    else if (event.category === "Exhibition") bg = "#a78bfa";
 
-  return {
-    style: {
-      backgroundColor,
-      color: "#fff",
-      borderRadius: "5px",
-      border: "none",
-      padding: "2px 5px",
-    },
+    return {
+      style: {
+        backgroundColor: bg,
+        color: "#fff",
+        borderRadius: "5px",
+        padding: "2px 5px",
+        fontSize: "0.85rem",
+      },
+    };
   };
-};
 
-const Calendar = () => {
+  // Custom event renderer (to show time with title)
+  const EventRenderer = ({ event }) => {
+    const startTime = format(event.start, "p"); // example: 6:00 PM
+    const endTime = format(event.end, "p"); 
+    return (
+      <span>
+        <strong>{event.title}</strong> <br />
+        <span>
+          {startTime} - {endTime}
+        </span>
+      </span>
+    );
+  };
+
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg container mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Upcoming Events Calendar</h2>
-      <BigCalendar
+    <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg container mx-auto">
+      <h2 className="text-2xl font-bold mb-4 text-black dark:text-white">
+        Upcoming Events Calendar (Bangladesh Time)
+      </h2>
+
+      <Calendar
         localizer={localizer}
-        events={events}
+        events={filteredEvents}
         startAccessor="start"
         endAccessor="end"
         style={{ height: 600 }}
         eventPropGetter={eventStyleGetter}
+        views={[Views.MONTH, Views.WEEK, Views.DAY]}
+        components={{
+          event: EventRenderer,
+        }}
       />
     </div>
   );
 };
 
-export default Calendar;
+export default EventCalendarShow;
