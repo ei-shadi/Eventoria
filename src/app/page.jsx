@@ -1,10 +1,13 @@
+import Hero from "@/components/home/Hero";
 
 
 const Home = () => {
   return (
     <>
-      This is Home
-      
+      {/* Hero Section */}
+<Hero />
+{/*  */}
+{/* Faq Section */}
     </>
   );
 };
