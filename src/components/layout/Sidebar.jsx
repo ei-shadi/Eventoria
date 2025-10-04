@@ -47,7 +47,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       { name: "Ticket Management", path: "/dashboard/tickets-management", icon: <FaTicketAlt /> },
       { name: "Ticket Sales & Reports", path: "/dashboard/ticket-sales-reports", icon: <FaTicketAlt /> },
       { name: "Event Calendar", path: "/dashboard/event-calendar", icon: <FaCalendarAlt /> },
-      { name: "Attendee Management", path: "/dashboard/attendees", icon: <FaUsers /> },
+      { name: "Attendee Management", path: "/dashboard/attendee-management", icon: <FaUsers /> },
       { name: "Reviews & Ratings", path: "/dashboard/reviews", icon: <MdReviews /> },
       { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
       { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
