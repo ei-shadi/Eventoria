@@ -1,31 +1,39 @@
-// src/components/layout/AppProviders.jsx (Client Component)
 
-"use client"; // 👈 এটি অবশ্যই দিতে হবে
+"use client"; 
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { usePathname } from "next/navigation";
-
+import ScrollToTop from "@/components/layout/ScrollToTop";
 
 export default function AppProviders({ children }) {
- const pathname = usePathname();
- 
- return (
-    <ThemeProvider
-     attribute="class"
-     defaultTheme="system"
-     enableSystem
-     disableTransitionOnChange
-    >
-     {/* Navbar */}
-     {!pathname.startsWith("/dashboard") && <Navbar />}
+   const pathname = usePathname();
+   const showLayout = !pathname.startsWith("/dashboard"); // Navbar & Footer visibility
 
-     {/* Main Content: children Prop-টি অবশ্যই রাখতে হবে */}
-     <main className="font-gabriela">{children}</main>
-     
-     {/* Footer */}
-     {!pathname.startsWith("/dashboard") && <Footer />}
-  </ThemeProvider>
-  );
+   return (
+      <ThemeProvider
+         attribute="class"
+         defaultTheme="system"
+         enableSystem
+         disableTransitionOnChange
+      >
+         {/* Navbar */}
+         {showLayout && (
+            <header className="h-[104px]">
+               <Navbar />
+            </header>
+         )}
+
+         {/* Automatic Scroll To Top When Page Changes */}
+         <ScrollToTop />
+         
+         {/* Main Content */}
+         <main className="min-h-screen">{children}</main>
+
+         {/* Footer */}
+         {showLayout && <Footer />}
+      </ThemeProvider>
+   );
 }
+
