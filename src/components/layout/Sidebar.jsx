@@ -32,7 +32,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       { name: "Dashboard Overview", path: "/dashboard/admin-dashboard", icon: <FaHome /> },
       { name: "Event Management", path: "/dashboard/events-management", icon: <MdEvent /> },
       { name: "Organizer Management", path: "/dashboard/organizers", icon: <MdEventAvailable /> },
-      { name: "User Management", path: "/dashboard/users", icon: <FaUsers /> },
+      { name: "User Management", path: "/dashboard/users-management", icon: <FaUsers /> },
       { name: "Total Sales & Reports", path: "/dashboard/total-reports", icon: <FaTicketAlt /> },
       { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
       { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
