@@ -24,9 +24,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${gabriela.variable} ${poppins.variable} antialiased`}>
-        {/* Provider for getting user by useSession */}
+        {/* Provider for getting User by useSession */}
         <Provider>
-            {/* App Provider for theme provider */}
+            {/* App Provider for theme Provider */}
           <AppProviders>{children}</AppProviders>
         </Provider>
       </body>
