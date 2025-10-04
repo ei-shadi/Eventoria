@@ -21,13 +21,14 @@ export default function RegisterFormClient() {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, role }),
+        body: JSON.stringify({ name, email, password}),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
         setError(data.error || "Something went wrong");
+        console.log(error);
         setLoading(false);
         return;
       }

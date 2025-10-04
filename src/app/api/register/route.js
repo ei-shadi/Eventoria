@@ -12,7 +12,7 @@ export async function POST(request) {
     }
 
     const client = await clientPromise;
-    const db = client.db("Job-Portal");
+    const db = client.db("EventoriaDB");
 
     // Check if user exists
     const existingUser = await db.collection("users").findOne({ email });
@@ -30,6 +30,7 @@ export async function POST(request) {
       role:'user',
       password: hashedPassword,
       createdAt: new Date(),
+      updatedAt:new Date()
     });
 
     return NextResponse.json({ success: true, id: newUser.insertedId }, { status: 201 });
