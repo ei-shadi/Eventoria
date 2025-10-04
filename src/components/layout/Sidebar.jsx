@@ -45,7 +45,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       { name: "Add Event", path: "/dashboard/add-event", icon: <MdEventNote /> },
       { name: "My Events", path: "/dashboard/my-events", icon: <MdEvent /> },
       { name: "Ticket Management", path: "/dashboard/tickets-management", icon: <FaTicketAlt /> },
-      { name: "Ticket Sales & Reports", path: "/dashboard/my-reports", icon: <FaTicketAlt /> },
+      { name: "Ticket Sales & Reports", path: "/dashboard/ticket-sales-reports", icon: <FaTicketAlt /> },
       { name: "Event Calendar", path: "/dashboard/event-calendar", icon: <FaCalendarAlt /> },
       { name: "Attendee Management", path: "/dashboard/attendees", icon: <FaUsers /> },
       { name: "Reviews & Ratings", path: "/dashboard/reviews", icon: <MdReviews /> },
