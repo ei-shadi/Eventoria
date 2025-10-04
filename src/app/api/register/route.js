@@ -5,9 +5,9 @@ import clientPromise from "@/lib/mongodb";
 
 export async function POST(request) {
   try {
-    const { name, email, password , role } = await request.json();
+    const { name, email, password } = await request.json();
 
-    if (!name || !email || !password || !role) {
+    if (!name || !email || !password ) {
       return NextResponse.json({ error: "All fields required" }, { status: 400 });
     }
 
@@ -27,7 +27,7 @@ export async function POST(request) {
     const newUser = await db.collection("users").insertOne({
       name,
       email,
-      role,
+      role:'user',
       password: hashedPassword,
       createdAt: new Date(),
     });

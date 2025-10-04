@@ -6,17 +6,31 @@ import { usePathname } from "next/navigation";
 import Logo from "../../../public/images/Logo.png";
 import { ModeToggle } from "../ui/ToggleButton";
 import Button from "../shared/Button";
+import { useSession,signOut } from "next-auth/react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+   const { data: session, status } = useSession();
 
-  const navLinks = [
+  let navLinks = [
     { name: "Home", path: "/" },
     { name: "Events", path: "/events" },
     { name: "About Us", path: "/about" },
     { name: "Contact", path: "/contact" },
   ];
+
+  if (session) {
+    navLinks=[
+      { name: "Home", path: "/" },
+    { name: "Events", path: "/events" },
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "About Us", path: "/about" },
+    { name: "Contact", path: "/contact" },
+    ]
+  }
+
+
 
   return (
     <div className="py-5 w-[90%] xl:w-[80%] mx-auto">
@@ -57,9 +71,18 @@ const Navbar = () => {
         {/* Desktop Right Side: Sign Up + Dark Mode Toggle */}
         <div className="items-center hidden space-x-8 lg:flex">
           <ModeToggle />
-          <Link href="/login">
-            <Button label="Sign Up" />
-          </Link>
+          {session? <button onClick={() => signOut({ callbackUrl: "/" })}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Logout</button>:
+                
+                <Link
+                  href="/login"
+                  aria-label="Sign up"
+                  title="Sign up"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Button label="Sign Up" />
+                </Link>
+                }
         </div>
 
         {/* Mobile Menu Button */}
@@ -141,6 +164,10 @@ const Navbar = () => {
                 <ModeToggle />
 
                 {/* Sign Up Button */}
+
+                {session? <button onClick={() => signOut({ callbackUrl: "/" })}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Logout</button>:
+                
                 <Link
                   href="/login"
                   aria-label="Sign up"
@@ -149,6 +176,7 @@ const Navbar = () => {
                 >
                   <Button label="Sign Up" />
                 </Link>
+                }
               </div>
             </div>
           )}

@@ -1,7 +1,7 @@
 import { Gabriela, Poppins } from "next/font/google";
 import "./globals.css";
 import AppProviders from "@/components/layout/AppProviders";
-import Provider from "@/components/SessionProvider/SessionProvider";
+import Provider from "@/providers/SessionProvider";
 
 const poppins = Poppins({
   variable: "--font-poppins",
