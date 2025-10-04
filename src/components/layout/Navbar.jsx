@@ -44,7 +44,7 @@ const Navbar = () => {
     <div
       className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${
         isScrolled
-          ? "bg-white/70 dark:bg-black/70 backdrop-blur-md shadow-md"
+          ? "bg-white/70 dark:bg-black/70 backdrop-blur-md"
           : "bg-transparent"
       }`}
     >
@@ -52,7 +52,7 @@ const Navbar = () => {
         <div className="relative flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="inline-flex items-center">
-            <Image src={Logo} alt="logo" className="w-18 md:w-20" />
+            <Image src={Logo} alt="logo" className="w-18" />
             <h3 className="ml-2 text-2xl md:text-3xl font-bold tracking-wide text-gray-800 dark:text-gray-100 font-gabriela">
               Eventoria
             </h3>
@@ -93,14 +93,16 @@ const Navbar = () => {
                     <AvatarFallback>{session.user.name?.[0] || "U"}</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                  <DropdownMenuItem className="cursor-default">
+                <DropdownMenuContent className="w-52 flex flex-col justify-between items-center gap-2">
+                  <DropdownMenuItem className="cursor-not-allowed font-gabriela text-lg text-black dark:text-white">
                     {session.user.name || session.user.email}
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="w-fit text-center px-8 py-1 border-[#8fda20] border-4 font-bold text-base text-[#8fda20] rounded-full bg-black dark:hover:bg-white dark:hover:text-black cursor-pointer">
                     <Link href="/dashboard">Dashboard</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
+                  <DropdownMenuItem 
+                  className="text-lg px-12 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition my-2 font-semibold cursor-pointer"
+                  onClick={() => signOut({ callbackUrl: "/" })}>
                     Logout
                   </DropdownMenuItem>
                 </DropdownMenuContent>

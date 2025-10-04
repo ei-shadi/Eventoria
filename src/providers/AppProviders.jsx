@@ -4,10 +4,11 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { usePathname } from "next/navigation";
-
+import ScrollToTop from "@/components/layout/ScrollToTop";
 
 export default function AppProviders({ children }) {
    const pathname = usePathname();
+   const showLayout = !pathname.startsWith("/dashboard"); // Navbar & Footer visibility
 
    return (
       <ThemeProvider
@@ -17,15 +18,20 @@ export default function AppProviders({ children }) {
          disableTransitionOnChange
       >
          {/* Navbar */}
-         <header className="h-[111px]">
-            {!pathname.startsWith("/dashboard") && <Navbar />}
-         </header>
+         {showLayout && (
+            <header className="h-[104px]">
+               <Navbar />
+            </header>
+         )}
 
+         {/* Automatic Scroll To Top When Page Changes */}
+         <ScrollToTop />
+         
          {/* Main Content */}
          <main className="min-h-screen">{children}</main>
 
          {/* Footer */}
-         {!pathname.startsWith("/dashboard") && <Footer />}
+         {showLayout && <Footer />}
       </ThemeProvider>
    );
 }

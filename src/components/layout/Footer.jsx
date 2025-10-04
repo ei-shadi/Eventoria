@@ -31,7 +31,7 @@ const Footer = () => {
         {/* Logo + Name at Top */}
         <div className="text-left">
           <Link href="/" className="inline-flex items-center">
-            <Image src={Logo} alt="logo" className="w-18 md:w-20" />
+            <Image src={Logo} alt="logo" className="w-18" />
             <h3 className="ml-2 text-2xl md:text-3xl font-bold tracking-wide text-gray-100 font-gabriela">
               Eventoria
             </h3>
