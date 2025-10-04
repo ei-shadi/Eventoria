@@ -50,9 +50,10 @@ const AddEvent = () => {
     const finalFormData = {
       ...data,
       coverImage: eventCoverImage,
-      status: "pending",
+      approvalStatus: "pending",
+      eventStatus: "live",
     };
-    console.log("Form submitted:", data, "this is full data", finalFormData);
+    console.log("this is full data", finalFormData);
     // Add API call to submit the form data
   };
   const handleImageUpload = async (e) => {

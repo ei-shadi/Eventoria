@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const expectedTicketsData = [
   {
@@ -46,6 +46,110 @@ const expectedTicketsData = [
       },
     ],
   },
+  {
+    category: "Workshop",
+    tickets: [
+      {
+        type: "Vip",
+        price: 200,
+        available: 200,
+        sold: 12,
+        remaining: 8,
+      },
+      {
+        type: "Regular",
+        price: 200,
+        available: 15,
+        sold: 7,
+        remaining: 8,
+      },
+      {
+        type: "Vip",
+        price: 999,
+        available: 15,
+        sold: 9,
+        remaining: 6,
+      },
+    ],
+  },
+  {
+    category: "Exhibition",
+    tickets: [
+      {
+        type: "Early-bird",
+        price: 100,
+        available: 20,
+        sold: 12,
+        remaining: 8,
+      },
+      {
+        type: "Regular",
+        price: 200,
+        available: 15,
+        sold: 7,
+        remaining: 8,
+      },
+      {
+        type: "Vip",
+        price: 999,
+        available: 15,
+        sold: 9,
+        remaining: 6,
+      },
+    ],
+  },
+  {
+    category: "Seminar",
+    tickets: [
+      {
+        type: "Early-bird",
+        price: 100,
+        available: 20,
+        sold: 12,
+        remaining: 8,
+      },
+      {
+        type: "Regular",
+        price: 200,
+        available: 15,
+        sold: 7,
+        remaining: 8,
+      },
+      {
+        type: "Vip",
+        price: 999,
+        available: 15,
+        sold: 9,
+        remaining: 6,
+      },
+    ],
+  },
+  {
+    category: "Other",
+    tickets: [
+      {
+        type: "Early-bird",
+        price: 100,
+        available: 20,
+        sold: 12,
+        remaining: 8,
+      },
+      {
+        type: "Regular",
+        price: 200,
+        available: 15,
+        sold: 7,
+        remaining: 8,
+      },
+      {
+        type: "Vip",
+        price: 999,
+        available: 15,
+        sold: 9,
+        remaining: 6,
+      },
+    ],
+  },
 ];
 
 const TicketCardList = () => {
@@ -68,11 +172,21 @@ const TicketCardList = () => {
                 {/* Top decorative line for ticket vibe */}
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-t-lg"></div>
 
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{ticket.type} Ticket</h3>
-                <p className="text-gray-700 dark:text-gray-300 mb-1">Price: ${ticket.price}</p>
-                <p className="text-gray-700 dark:text-gray-300 mb-1">Available: {ticket.available}</p>
-                <p className="text-orange-500 dark:text-orange-400 mb-1 font-semibold">Sold: {ticket.sold}</p>
-                <p className="text-green-600 dark:text-green-400 font-semibold">Remaining: {ticket.remaining}</p>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  {ticket.type} Ticket
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-1">
+                  Price: ${ticket.price}
+                </p>
+                <p className="text-gray-700 dark:text-gray-300 mb-1">
+                  Available: {ticket.available}
+                </p>
+                <p className="text-orange-500 dark:text-orange-400 mb-1 font-semibold">
+                  Sold: {ticket.sold}
+                </p>
+                <p className="text-green-600 dark:text-green-400 font-semibold">
+                  Remaining: {ticket.remaining}
+                </p>
 
                 {/* Bottom decorative perforation line for ticket vibe */}
                 <div className="absolute bottom-0 left-0 w-full h-2 border-t-2 border-dashed border-gray-300 dark:border-gray-600"></div>
