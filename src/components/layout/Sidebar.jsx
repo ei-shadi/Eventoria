@@ -22,7 +22,7 @@ import Image from "next/image";
 
 
 export default function Sidebar({ isOpen, setIsOpen }) {
-  const role = "admin"; // later dynamic
+  const role = "organizer"; // later dynamic
   const pathname = usePathname();
 
   let sidebarRoutes = [];
@@ -45,9 +45,9 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       { name: "Add Event", path: "/dashboard/add-event", icon: <MdEventNote /> },
       { name: "My Events", path: "/dashboard/my-events", icon: <MdEvent /> },
       { name: "Ticket Management", path: "/dashboard/tickets-management", icon: <FaTicketAlt /> },
-      { name: "Ticket Sales & Reports", path: "/dashboard/my-reports", icon: <FaTicketAlt /> },
+      { name: "Ticket Sales & Reports", path: "/dashboard/ticket-sales-reports", icon: <FaTicketAlt /> },
       { name: "Event Calendar", path: "/dashboard/event-calendar", icon: <FaCalendarAlt /> },
-      { name: "Attendee Management", path: "/dashboard/attendees", icon: <FaUsers /> },
+      { name: "Attendee Management", path: "/dashboard/attendee-management", icon: <FaUsers /> },
       { name: "Reviews & Ratings", path: "/dashboard/reviews", icon: <MdReviews /> },
       { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
       { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },

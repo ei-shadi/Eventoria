@@ -137,3 +137,24 @@ button {
     @apply bg-background text-foreground;
   }
 }
+
+
+/* Big calendar css */
+/* Default toolbar button style */
+.rbc-toolbar button {
+  color: #1f2937; /* gray-800 for light mode */
+}
+
+/* Dark mode style */
+.dark .rbc-toolbar button {
+  color: #2982dc; /* gray-100 for dark mode */
+}
+
+/* Optional: active button highlight */
+.rbc-toolbar button.rbc-active {
+  font-weight: bold;
+  border-bottom: 2px solid #3b82f6; /* blue-500 */
+}
+.dark .rbc-toolbar button.rbc-active {
+  border-bottom: 2px solid #60a5fa; /* lighter blue in dark */
+}

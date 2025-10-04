@@ -1,18 +1,10 @@
 import React from "react";
-import { format } from "date-fns";
 
 import EventCardList from "@/components/Organizer/EventListCard/EventCardList";
 
 
 
-// format helper
-const formatDate = (dateString) => {
-  try {
-    return format(new Date(dateString), "MMM dd, yyyy • h:mm a");
-  } catch (error) {
-    return dateString;
-  }
-};
+
 
 const MyEvents = () => {
   return (
