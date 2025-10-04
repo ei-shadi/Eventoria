@@ -5,7 +5,7 @@ import TicketStatsEventWise from '@/components/Organizer/TicketSalesReports/Tick
 const TicketSalesReports = () => {
     return (
         <div>
-            <h1 className="text-xl font-bold mb-6">Ticket Sales Reports</h1>
+          
             <TicketTotalStats />
             <TicketStatsEventWise />
         </div>

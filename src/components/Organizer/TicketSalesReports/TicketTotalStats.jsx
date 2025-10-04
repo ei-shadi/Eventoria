@@ -1,7 +1,9 @@
+'use client'
 import React from "react";
 import { MdEmojiEvents } from "react-icons/md";
 import { MdSell } from "react-icons/md";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
+import Papa from "papaparse";
 
 const ticketTotalStats = [
   {
@@ -12,7 +14,35 @@ const ticketTotalStats = [
 ];
 const { totalEvents, totalTicketsSold, totalRevenue } = ticketTotalStats[0];
 const TicketTotalStats = () => {
+    const downloadCSV = () => {
+    // JSON → CSV
+    const csv = Papa.unparse(ticketTotalStats);
+
+    // Create blob
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+
+    // Create temporary link to download
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "ticket_sales_report.csv");
+
+    // Trigger download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
+    <div>
+      <div className="py-3 lg:py-6 flex flex-col md:flex-row justify-between px-6">
+        <h1 className="text-xl font-bold">Total Ticket Sales Reports</h1>
+          <button
+        onClick={downloadCSV}
+        className=" px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer"
+      >
+        Download CSV
+      </button>
+      </div>
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
       {/* Total Event Stats*/}
       <div className="relative w-full max-w-xs sm:max-w-lg rounded-xl p-5 lg:p-9 overflow-hidden bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-2xl h-full">
@@ -105,6 +135,8 @@ const TicketTotalStats = () => {
           </div>
         </div>
       </div>
+      
+    </div>
     </div>
   );
 };

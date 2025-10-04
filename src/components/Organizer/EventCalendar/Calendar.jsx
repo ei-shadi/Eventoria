@@ -118,7 +118,7 @@ const EventCalendarShow = () => {
 
   return (
     <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg container mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-black dark:text-white">
+      <h2 className="text-xl lg:text-2xl font-bold mb-4 text-black dark:text-white text-center lg:text-left">
         Upcoming Events Calendar (Bangladesh Time)
       </h2>
 
