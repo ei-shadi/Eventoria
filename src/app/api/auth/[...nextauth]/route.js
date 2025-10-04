@@ -22,7 +22,7 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         const client = await clientPromise;
-        const db = client.db("Job-Portal");
+        const db = client.db("EventoriaDB");
 
         // Find user
         const user = await db.collection("users").findOne({ email: credentials.email });
