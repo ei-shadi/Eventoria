@@ -9,7 +9,17 @@ import Logo from "../../../public/images/Logo.png";
 import { ModeToggle } from "../ui/ToggleButton";
 import Button from "../shared/Button";
 import { useSession, signOut } from "next-auth/react";
-import { Home, CalendarDays, Info, Phone, LayoutDashboard } from "lucide-react";
+
+// ✅ React Icons (Font Awesome)
+import {
+  FaHome,
+  FaCalendarAlt,
+  FaInfoCircle,
+  FaPhoneAlt,
+  FaTachometerAlt,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 
 // ShadCN UI
 import {
@@ -28,15 +38,13 @@ const Navbar = () => {
   const pathname = usePathname();
 
   const navLinks = [
-    { name: "Home", path: "/", icon: Home },
-    { name: "Events", path: "/events", icon: CalendarDays },
-    { name: "About Us", path: "/about", icon: Info },
-    { name: "Contact", path: "/contact", icon: Phone },
+    { name: "Home", path: "/", icon: FaHome },
+    { name: "Events", path: "/events", icon: FaCalendarAlt },
+    { name: "About Us", path: "/about", icon: FaInfoCircle },
+    { name: "Contact", path: "/contact", icon: FaPhoneAlt },
   ];
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -44,14 +52,14 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // lock body scroll while mobile menu is open
   useEffect(() => {
     if (!mounted) return;
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isMenuOpen, mounted]);
 
-  // top-level navbar classes remain same, portal will render overlay outside this element
   const navbarBgClass = isScrolled
     ? "bg-black/50 dark:bg-black/30 backdrop-blur-md"
     : "bg-transparent";
@@ -77,10 +85,11 @@ const Navbar = () => {
                 <li key={link.name}>
                   <Link
                     href={link.path}
-                    className={`flex items-center gap-2 transition-colors ${pathname === link.path
+                    className={`flex items-center gap-2 transition-colors ${
+                      pathname === link.path
                         ? "font-bold text-headline text-xl xl:text-2xl"
-                        : "text-gray-200 dark:text-gray-400 xl:text-lg font-semibold hover:text-[#ADFF30] dark:hover:text-[#738E54]"
-                      }`}
+                        : "text-gray-400 dark:text-gray-400 xl:text-lg font-semibold hover:text-[#ADFF30] dark:hover:text-[#738E54]"
+                    }`}
                   >
                     <link.icon className="w-6 h-6" />
                     {link.name}
@@ -102,7 +111,9 @@ const Navbar = () => {
                           "https://img.daisyui.com/images/profile/demo/spiderperson@192.webp"
                         }
                       />
-                      <AvatarFallback>{session.user.name?.[0] || "U"}</AvatarFallback>
+                      <AvatarFallback>
+                        {session.user.name?.[0] || "U"}
+                      </AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-52 flex flex-col justify-between items-center gap-2">
@@ -121,7 +132,7 @@ const Navbar = () => {
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <Link href="/login" >
+                <Link href="/login">
                   <Button label="Sign Up" />
                 </Link>
               )}
@@ -132,23 +143,10 @@ const Navbar = () => {
               <button
                 aria-label="Open Menu"
                 title="Open Menu"
-                className="p-2 -mr-1 rounded focus:outline-none focus:shadow-outline hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition"
                 onClick={() => setIsMenuOpen(true)}
               >
-                <svg className="w-5 text-gray-600 dark:text-gray-300" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M23,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,13,23,13z"
-                  />
-                  <path
-                    fill="currentColor"
-                    d="M23,6H1C0.4,6,0,5.6,0,5s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,6,23,6z"
-                  />
-                  <path
-                    fill="currentColor"
-                    d="M23,20H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,20,23,20z"
-                  />
-                </svg>
+                <FaBars className="w-7 h-7 text-gray-800 dark:text-gray-200" />
               </button>
             </div>
           </div>
@@ -205,31 +203,25 @@ function MobileMenuPortal({ navLinks, session, pathname, onClose, onSignOut }) {
             className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:shadow-outline"
             onClick={onClose}
           >
-            <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M19.7,4.3c-0.4-0.4-1-0.4-1.4,0L12,10.6L5.7,4.3c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l6.3,6.3-6.3,6.3
-                c-0.4,0.4-0.4,1,0,1.4C4.5,19.9,4.7,20,5,20s0.5-0.1,0.7-0.3l6.3-6.3 6.3,6.3c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,
-                0.7-0.3c0.4-0.4,0.4-1,0-1.4L13.4,12l6.3-6.3C20.1,5.3,20.1,4.7,19.7,4.3z"
-              />
-            </svg>
+            <FaTimes className="w-7 h-7 text-gray-800 dark:text-gray-200" />
           </button>
         </div>
       </div>
 
       {/* Links + Dashboard + Logout */}
       <div className="flex flex-col items-center gap-6 mt-6 w-full">
-        {[...navLinks, ...(session ? [{ name: "Dashboard", path: "/dashboard", icon: LayoutDashboard }] : [])].map(
+        {[...navLinks, ...(session ? [{ name: "Dashboard", path: "/dashboard", icon: FaTachometerAlt }] : [])].map(
           (link) => {
             const isActive = pathname === link.path;
             return (
               <Link
                 key={link.name}
                 href={link.path}
-                className={`flex items-center gap-2 justify-center w-fit px-6 py-2 font-bold text-xl rounded-full transition ${isActive
+                className={`flex items-center gap-2 justify-center w-fit px-6 py-2 font-bold text-xl rounded-full transition ${
+                  isActive
                     ? "bg-black text-[#8fda20] border-4 border-[#8fda20]"
                     : "text-gray-700 dark:text-gray-400 hover:text-[#738E54] dark:hover:text-[#738E54]"
-                  }`}
+                }`}
                 onClick={onClose}
               >
                 <link.icon className="w-5 h-5" />
@@ -248,10 +240,13 @@ function MobileMenuPortal({ navLinks, session, pathname, onClose, onSignOut }) {
           </button>
         ) : (
           <Link href="/login" onClick={onClose}>
-            <Button label="Sign Up" className="w-full"
+            <Button
+              label="Sign Up"
+              className="w-full"
               bgColor="#DC2626"
               textColor="white"
-              borderColor="black" />
+              borderColor="black"
+            />
           </Link>
         )}
       </div>
