@@ -14,7 +14,7 @@ const AddEventForm = () => {
   const [eventCoverImage, setEventCoverImage] = useState("");
   const [previewUrl, setPreviewUrl] = useState(null);
   const { data: session } = useSession();
-  console.log(session,'this is session');
+  console.log(session, "this is session");
   const {
     register,
     handleSubmit,
@@ -53,7 +53,7 @@ const AddEventForm = () => {
   const onSubmit = (data) => {
     const finalFormData = {
       ...data,
-      organizerEmail:'text@example.com',
+      organizerEmail: session?.user?.email,
       coverImage: eventCoverImage,
       approvalStatus: "pending",
       eventStatus: "live",
@@ -141,7 +141,7 @@ const AddEventForm = () => {
                           ...base,
                           backgroundColor: state.isFocused
                             ? "var(--accent)"
-                            : "var(--background) dark:bg-gray-800",
+                            : "var(--background)",
                           color: "var(--foreground)",
                         }),
                         singleValue: (base) => ({
@@ -366,24 +366,67 @@ const AddEventForm = () => {
                         }
                         onChange={(selected) => onChange(selected?.value)}
                         placeholder="Select type"
-                        className="react-select-container dark:bg-gray-800"
+                        className="react-select-container"
                         classNamePrefix="react-select"
                         styles={{
-                          control: (base) => ({
+                          control: (base, state) => ({
                             ...base,
                             backgroundColor:
-                              "var(--background) dark:bg-gray-800",
-                            borderColor: "var(--border)",
+                              document.documentElement.classList.contains(
+                                "dark"
+                              )
+                                ? "#1f2937" // dark:bg-gray-800
+                                : "#ffffff", // light mode white
+                            color: document.documentElement.classList.contains(
+                              "dark"
+                            )
+                              ? "#f9fafb"
+                              : "#111827",
+                            borderColor: state.isFocused
+                              ? "#6366f1"
+                              : "#d1d5db",
+                            boxShadow: state.isFocused
+                              ? "0 0 0 1px #6366f1"
+                              : "none",
                           }),
-                          menu: (base) => ({
+                          menuList: (base) => ({
                             ...base,
                             backgroundColor:
-                              "var(--background) dark:bg-gray-800",
+                              document.documentElement.classList.contains(
+                                "dark"
+                              )
+                                ? "#1f2937" // dark mode dropdown bg
+                                : "#ffffff", // light mode dropdown bg
+                            color: document.documentElement.classList.contains(
+                              "dark"
+                            )
+                              ? "#f9fafb"
+                              : "#111827",
+                          }),
+                          option: (base, { isFocused, isSelected }) => ({
+                            ...base,
+                            backgroundColor: isSelected
+                              ? "#6366f1"
+                              : isFocused
+                              ? document.documentElement.classList.contains(
+                                  "dark"
+                                )
+                                ? "#374151" // hover dark
+                                : "#f3f4f6" // hover light
+                              : "transparent",
+                            color: isSelected
+                              ? "#ffffff"
+                              : document.documentElement.classList.contains(
+                                  "dark"
+                                )
+                              ? "#f9fafb"
+                              : "#111827",
                           }),
                         }}
                       />
                     )}
                   />
+
                   {errors.tickets?.[index]?.type && (
                     <p className="text-red-500 text-xs mt-1">
                       {errors.tickets[index].type.message}
