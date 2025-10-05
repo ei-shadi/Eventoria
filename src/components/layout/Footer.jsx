@@ -26,7 +26,7 @@ const footerLinks = [
 const Footer = () => {
   return (
     <footer className="bg-black dark:bg-gray-800 dark:text-gray-700 text-gray-300">
-      <div className="pt-16 w-[90%] xl:w-[80%] mx-auto">
+      <div className="pt-16 px-6 md:px-14 lg:px-10 container mx-auto">
         
         {/* Logo + Name at Top */}
         <div className="text-left">

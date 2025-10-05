@@ -2,9 +2,9 @@ import React from 'react';
 
 const About = () => {
   return (
-    <div>
+    <section className='pt-[104px]'>
       This about page
-    </div>
+    </section>
   );
 };
 
