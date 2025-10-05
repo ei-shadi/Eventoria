@@ -1,6 +1,8 @@
+import Link from "next/link";
 import Banner from "../../../public/images/Banner.jpg";
 import Button from "../shared/Button";
 import HeroAnimation from "../shared/HeroAnimation";
+
 
 const Hero = () => {
   return (
@@ -20,7 +22,7 @@ const Hero = () => {
         {/* Hero Animation */}
         <div className="absolute top-45 lg:top-48 xl:top-52 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
 
-        <HeroAnimation />
+          <HeroAnimation />
         </div>
 
         {/* Headline */}
@@ -44,10 +46,11 @@ const Hero = () => {
             hoverBorder="#ADFF30"
             borderColor="black"
           />
-
-          <button className="border-2 border-white text-white hover:bg-white hover:text-black text-xl font-extrabold px-10 py-3 rounded-full transition cursor-pointer">
-            Explore Events
-          </button>
+          <Link href="/events">
+            <button className="border-2 border-white text-white hover:bg-white hover:text-black text-lg font-extrabold px-10 py-3 rounded-full transition cursor-pointer">
+              Explore Events
+            </button>
+          </Link>
         </div>
       </div>
     </section>
