@@ -24,12 +24,7 @@ import { useSession } from "next-auth/react";
 
 export default function Sidebar({ isOpen, setIsOpen }) {
 
-
-   const { data: session, status } = useSession();
-   console.log("role",session?.role);
   const role = "admin"; // later dynamic
-
- 
 
   const pathname = usePathname();
 
@@ -43,7 +38,9 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       { name: "User Management", path: "/dashboard/users-management", icon: <FaUsers /> },
       { name: "Total Sales & Reports", path: "/dashboard/total-reports", icon: <FaTicketAlt /> },
       { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
-      { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
+      // { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
+      { name: "Back to Home", path: "/", icon: <FaSignOutAlt />, bottom: true },
+
     ];
   }
 
@@ -58,7 +55,9 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       { name: "Attendee Management", path: "/dashboard/attendee-management", icon: <FaUsers /> },
       { name: "Reviews & Ratings", path: "/dashboard/reviews", icon: <MdReviews /> },
       { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
-      { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
+      // { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
+      { name: "Back to Home", path: "/", icon: <FaSignOutAlt />, bottom: true },
+
     ];
   }
 
@@ -71,7 +70,9 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       { name: "Event Calendar", path: "/dashboard/my-calendar", icon: <FaCalendarAlt /> },
       { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
       { name: "Notifications", path: "/dashboard/notifications", icon: <MdEventNote /> },
-      { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
+      // { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
+      { name: "Back to Home", path: "/", icon: <FaSignOutAlt />, bottom: true },
+
     ];
   }
 
@@ -107,7 +108,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         </div>
 
         {/* Nav */}
-        <nav className="flex flex-col min-h-screen p-4 gap-2 justify-between">
+        <nav className="flex flex-col min-h-screen p-4 gap-2 justify-between mt-10 lg:mt-0">
           <Link
           href="/"
           aria-label="Company"
@@ -128,7 +129,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                   key={route.name}
                   href={route.path}
                   onClick={() => setIsOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200 ${
+                  className={`flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200  ${
                     isActive
                       ? "bg-blue-500 dark:bg-blue-600 text-white shadow"
                       : "hover:bg-gray-100 dark:hover:bg-gray-800"
