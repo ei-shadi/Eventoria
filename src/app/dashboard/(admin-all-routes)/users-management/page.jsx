@@ -107,7 +107,7 @@ export default function ManageUsers() {
   }
 
   return (
-    <div className="w-full mx-auto py-8 min-h-screen px-4">
+    <div className="w-full mx-auto py-8 min-h-screen ">
       <h1 className="text-3xl md:text-4xl font-bold text-center text-gray-800 dark:text-gray-100 mb-10">
         Manage Users
       </h1>
@@ -140,10 +140,10 @@ export default function ManageUsers() {
                     {user.role}
                   </span>
                 </td>
-                <td className="py-3 px-4 border-b dark:border-gray-600 text-center space-x-2">
+                <td className="py-3 px-4 border-b dark:border-gray-600 text-center ">
                   <button
                     onClick={() => handleRoleChange(user.email, "user")}
-                    className={`py-1 px-3 rounded-md text-sm font-medium m-1 ${
+                    className={`py-1 px-3 rounded-md text-xs font-medium m-1 ${
                       user.role === "user"
                         ? "bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-300 cursor-not-allowed"
                         : "bg-blue-500 text-white hover:bg-blue-600"
@@ -154,7 +154,7 @@ export default function ManageUsers() {
                   </button>
                   <button
                     onClick={() => handleRoleChange(user.email, "organizer")}
-                    className={`py-1 px-3 rounded-md text-sm font-medium m-1 ${
+                    className={`py-1 px-3 rounded-md text-xs font-medium m-1 ${
                       user.role === "organizer"
                         ? "bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-300 cursor-not-allowed"
                         : "bg-blue-500 text-white hover:bg-blue-600"
@@ -165,7 +165,7 @@ export default function ManageUsers() {
                   </button>
                   <button
                     onClick={() => handleRoleChange(user.email, "admin")}
-                    className={`py-1 px-3 rounded-md text-sm font-medium m-1 ${
+                    className={`py-1 px-3 rounded-md text-xs font-medium m-1 ${
                       user.role === "admin"
                         ? "bg-green-200 text-green-800 dark:bg-green-900 dark:text-green-300 cursor-not-allowed"
                         : "bg-green-500 text-white hover:bg-green-600"
