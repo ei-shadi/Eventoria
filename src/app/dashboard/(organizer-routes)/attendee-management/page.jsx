@@ -4,7 +4,7 @@ import React from 'react';
 const AttendeeManagement = () => {
     return (
         <div>
-            <h1 className="text-2xl font-bold mb-6">Attendee Management</h1>
+            <h1 className="text-2xl text-center lg:text-4xl font-bold mb-6">Attendee Management</h1>
             <AttendeeManagementCard />
         </div>
     );

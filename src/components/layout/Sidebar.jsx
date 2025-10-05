@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -21,14 +20,11 @@ import Logo from "../../../public/images/Logo.png";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
-
 export default function Sidebar({ isOpen, setIsOpen }) {
-
   const { data: session, status } = useSession();
-   console.log('user',session?.user?.role);
-   console.log('user',session);
 
-  const role = session?.user?.role; 
+
+  const role = session?.user?.role;
 
   const pathname = usePathname();
 
@@ -36,50 +32,126 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
   if (role === "admin") {
     sidebarRoutes = [
-      { name: "Dashboard Overview", path: "/dashboard/admin-dashboard", icon: <FaHome /> },
-      { name: "Event Management", path: "/dashboard/events-management", icon: <MdEvent /> },
-      { name: "Organizer Management", path: "/dashboard/organizers", icon: <MdEventAvailable /> },
-      { name: "User Management", path: "/dashboard/users-management", icon: <FaUsers /> },
-      { name: "Total Sales & Reports", path: "/dashboard/total-reports", icon: <FaTicketAlt /> },
-      { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
+      {
+        name: "Dashboard Overview",
+        path: "/dashboard/admin-dashboard",
+        icon: <FaHome />,
+      },
+      {
+        name: "Event Management",
+        path: "/dashboard/events-management",
+        icon: <MdEvent />,
+      },
+      {
+        name: "Organizer Management",
+        path: "/dashboard/organizers",
+        icon: <MdEventAvailable />,
+      },
+      {
+        name: "User Management",
+        path: "/dashboard/users-management",
+        icon: <FaUsers />,
+      },
+      {
+        name: "Total Sales & Reports",
+        path: "/dashboard/total-reports",
+        icon: <FaTicketAlt />,
+      },
+      {
+        name: "Profile Settings",
+        path: "/dashboard/profile-settings",
+        icon: <FaCog />,
+      },
       // { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
       { name: "Back to Home", path: "/", icon: <FaSignOutAlt />, bottom: true },
-
     ];
   }
 
   if (role === "organizer") {
     sidebarRoutes = [
-      { name: "Dashboard Overview", path: "/organizer-dashboard", icon: <FaHome /> },
-      { name: "Add Event", path: "/dashboard/add-event", icon: <MdEventNote /> },
+      {
+        name: "Dashboard Overview",
+        path: "/organizer-dashboard",
+        icon: <FaHome />,
+      },
+      {
+        name: "Add Event",
+        path: "/dashboard/add-event",
+        icon: <MdEventNote />,
+      },
       { name: "My Events", path: "/dashboard/my-events", icon: <MdEvent /> },
-      { name: "Ticket Management", path: "/dashboard/tickets-management", icon: <FaTicketAlt /> },
-      { name: "Ticket Sales & Reports", path: "/dashboard/ticket-sales-reports", icon: <FaTicketAlt /> },
-      { name: "Event Calendar", path: "/dashboard/event-calendar", icon: <FaCalendarAlt /> },
-      { name: "Attendee Management", path: "/dashboard/attendee-management", icon: <FaUsers /> },
-      { name: "Reviews & Ratings", path: "/dashboard/reviews", icon: <MdReviews /> },
-      { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
+      {
+        name: "Ticket Management",
+        path: "/dashboard/tickets-management",
+        icon: <FaTicketAlt />,
+      },
+      {
+        name: "Ticket Sales & Reports",
+        path: "/dashboard/ticket-sales-reports",
+        icon: <FaTicketAlt />,
+      },
+      {
+        name: "Event Calendar",
+        path: "/dashboard/event-calendar",
+        icon: <FaCalendarAlt />,
+      },
+      {
+        name: "Attendee Management",
+        path: "/dashboard/attendee-management",
+        icon: <FaUsers />,
+      },
+      {
+        name: "Reviews & Ratings",
+        path: "/dashboard/review-ratings",
+        icon: <MdReviews />,
+      },
+      {
+        name: "Profile Settings",
+        path: "/dashboard/profile-settings",
+        icon: <FaCog />,
+      },
       // { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
       { name: "Back to Home", path: "/", icon: <FaSignOutAlt />, bottom: true },
-
     ];
   }
 
   if (role === "user") {
     sidebarRoutes = [
       { name: "Dashboard Overview", path: "/user-dashboard", icon: <FaHome /> },
-      { name: "Event Discovery", path: "/dashboard/discovery", icon: <MdEventAvailable /> },
-      { name: "Ticket Management", path: "/dashboard/my-tickets", icon: <FaTicketAlt /> },
-      { name: "Reviews & Ratings", path: "/dashboard/my-reviews", icon: <MdReviews /> },
-      { name: "Event Calendar", path: "/dashboard/my-calendar", icon: <FaCalendarAlt /> },
-      { name: "Profile Settings", path: "/dashboard/profile-settings", icon: <FaCog /> },
-      { name: "Notifications", path: "/dashboard/notifications", icon: <MdEventNote /> },
+      {
+        name: "Event Discovery",
+        path: "/dashboard/discovery",
+        icon: <MdEventAvailable />,
+      },
+      {
+        name: "Ticket Management",
+        path: "/dashboard/my-tickets",
+        icon: <FaTicketAlt />,
+      },
+      {
+        name: "Reviews & Ratings",
+        path: "/dashboard/my-reviews",
+        icon: <MdReviews />,
+      },
+      {
+        name: "Event Calendar",
+        path: "/dashboard/my-calendar",
+        icon: <FaCalendarAlt />,
+      },
+      {
+        name: "Profile Settings",
+        path: "/dashboard/profile-settings",
+        icon: <FaCog />,
+      },
+      {
+        name: "Notifications",
+        path: "/dashboard/notifications",
+        icon: <MdEventNote />,
+      },
       // { name: "Logout", path: "/logout", icon: <FaSignOutAlt />, bottom: true },
       { name: "Back to Home", path: "/", icon: <FaSignOutAlt />, bottom: true },
-
     ];
   }
-
 
   return (
     <>
@@ -101,8 +173,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
       >
         {/* Header */}
-         <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-900 shadow-md lg:hidden fixed w-full z-50 top-0">
-          
+        <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-900 shadow-md lg:hidden fixed w-full z-50 top-0">
           <button
             className="lg:hidden text-gray-600 dark:text-gray-300"
             onClick={() => setIsOpen(false)}
@@ -114,59 +185,65 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         {/* Nav */}
         <nav className="flex flex-col min-h-screen p-4 gap-2 justify-between mt-10 lg:mt-0">
           <Link
-          href="/"
-          aria-label="Company"
-          title="Company"
-          className="lg:inline-flex items-center hidden "
-        >
-          <Image src={Logo} alt="logo" className="w-12 md:w-15" />
-          <h3 className="ml-2 text-xl md:text-2xl font-bold tracking-wide text-gray-800 dark:text-gray-100 font-gabriela">
-            Eventoria
-          </h3>
-        </Link>
+            href="/"
+            aria-label="Company"
+            title="Company"
+            className="lg:inline-flex items-center hidden "
+          >
+            <Image src={Logo} alt="logo" className="w-12 md:w-15" />
+            <h3 className="ml-2 text-xl md:text-2xl font-bold tracking-wide text-gray-800 dark:text-gray-100 font-gabriela">
+              Eventoria
+            </h3>
+          </Link>
           {/* Top Links */}
           <div className="flex flex-col gap-2">
-            {sidebarRoutes.filter(r => !r.bottom).map((route) => {
-              const isActive = pathname === route.path;
-              return (
-                <Link
-                  key={route.name}
-                  href={route.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200  ${
-                    isActive
-                      ? "bg-blue-500 dark:bg-blue-600 text-white shadow"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-800"
-                  }`}
-                >
-                  <span
-                    className={`text-lg ${
-                      isActive ? "text-white" : "text-blue-500 dark:text-blue-400"
+            {sidebarRoutes
+              .filter((r) => !r.bottom)
+              .map((route) => {
+                const isActive = pathname === route.path;
+                return (
+                  <Link
+                    key={route.name}
+                    href={route.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200  ${
+                      isActive
+                        ? "bg-blue-500 dark:bg-blue-600 text-white shadow"
+                        : "hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
                   >
-                    {route.icon}
-                  </span>
-                  {route.name}
-                </Link>
-              );
-            })}
+                    <span
+                      className={`text-lg ${
+                        isActive
+                          ? "text-white"
+                          : "text-blue-500 dark:text-blue-400"
+                      }`}
+                    >
+                      {route.icon}
+                    </span>
+                    {route.name}
+                  </Link>
+                );
+              })}
           </div>
 
           {/* Bottom Links (Logout) */}
           <div className="mt-4 lg:mt-auto">
-            {sidebarRoutes.filter(r => r.bottom).map((route) => (
-              <Link
-                key={route.name}
-                href={route.path}
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 px-3 py-2 rounded-md 
+            {sidebarRoutes
+              .filter((r) => r.bottom)
+              .map((route) => (
+                <Link
+                  key={route.name}
+                  href={route.path}
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2 rounded-md 
                   text-red-600 dark:text-red-400 
                   hover:bg-red-100 dark:hover:bg-red-800/40"
-              >
-                <span className="text-lg">{route.icon}</span>
-                {route.name}
-              </Link>
-            ))}
+                >
+                  <span className="text-lg">{route.icon}</span>
+                  {route.name}
+                </Link>
+              ))}
           </div>
         </nav>
       </aside>
