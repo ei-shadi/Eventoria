@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -23,8 +22,7 @@ import { useSession } from "next-auth/react";
 
 export default function Sidebar({ isOpen, setIsOpen }) {
   const { data: session, status } = useSession();
-  console.log("user", session?.user?.role);
-  console.log("user", session);
+
 
   const role = session?.user?.role;
 

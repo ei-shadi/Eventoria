@@ -5,7 +5,7 @@ import { Calendar, MapPin } from "lucide-react";
 import { format } from "date-fns";
 import StatusUpdateModal from "../StatusUpdateModal/StatusUpdateModal";
 
-// Dummy Data
+// Dummy Data-->THIS DATA WILL COME FROM EVENTS(FORM DATA) AND AFTER PERFORMING FILTER BY CURRENTLY LOGGED IN ORGANIZER EMAIL
 const myEventsData = [
   {
     eventName: "Summer Music Festival",
