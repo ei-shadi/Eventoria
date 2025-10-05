@@ -1,5 +1,5 @@
 
-"use client"; 
+"use client";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -9,8 +9,7 @@ import ScrollToTop from "@/components/layout/ScrollToTop";
 
 export default function AppProviders({ children }) {
    const pathname = usePathname();
-   const showLayout = !pathname.startsWith("/dashboard"); // Navbar & Footer visibility
-
+   const showLayout = !pathname.startsWith("/dashboard"); 
    return (
       <ThemeProvider
          attribute="class"
@@ -19,15 +18,11 @@ export default function AppProviders({ children }) {
          disableTransitionOnChange
       >
          {/* Navbar */}
-         {showLayout && (
-            <header className="h-[104px]">
-               <Navbar />
-            </header>
-         )}
+         {showLayout && <Navbar />}
 
          {/* Automatic Scroll To Top When Page Changes */}
          <ScrollToTop />
-         
+
          {/* Main Content */}
          <main className="min-h-screen">{children}</main>
 

@@ -2,9 +2,9 @@ import React from 'react';
 
 const Contact = () => {
   return (
-    <div>
+    <section className='pt-[104px]'>
       This is contact page
-    </div>
+    </section>
   );
 };
 
