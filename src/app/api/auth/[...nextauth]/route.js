@@ -60,7 +60,7 @@ const handler = NextAuth({
       }
 
       if (!token.role) {
-      token.role = "jobseeker"; // default role
+      token.role = "user"; // default role
     }
       
       return token;

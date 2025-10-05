@@ -10,6 +10,7 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const email = searchParams.get("email");
 
+    
     if (email) {
       // Get a single user's profile by email
       const user = await db.collection("users").findOne({ email });
