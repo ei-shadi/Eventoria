@@ -7,7 +7,7 @@ export async function GET(req){
     const db = await getDatabase() ;
     const { searchParams } = new URL(req.url) ;
     const email = searchParams.get('email') ;
-    const result = await db.collection('events').find({organizerEmail : email}).toArray() ;
+    const result = await db.collection('events').find({organizerEmail : email,approvalStatus: "approved"}).toArray() ;
     return NextResponse.json(result) ;
 
 }
@@ -37,6 +37,8 @@ export async function DELETE(req){
 // updating an event
 
 
+
+//ticket stat aggregrate api 
 
 
 

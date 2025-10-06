@@ -15,8 +15,8 @@ const AddEventForm = () => {
   const [eventCoverImage, setEventCoverImage] = useState("");
   const [previewUrl, setPreviewUrl] = useState(null);
   const { data: session } = useSession();
-  const axiosInstance=useAxios()
-  
+  const axiosInstance = useAxios();
+
   const {
     register,
     handleSubmit,
@@ -32,7 +32,7 @@ const AddEventForm = () => {
       address: "",
       country: "",
       description: "",
-      tickets: [{ type: "", price: "", availability: "" }],
+      tickets: [{ type: "", price: "", availability: "",sold:0 }],
     },
   });
   const {
@@ -62,9 +62,10 @@ const AddEventForm = () => {
     };
     console.log("this is full data", finalFormData);
     // Add API call to submit the form data
-    axiosInstance.post("/api/organizerEvents", finalFormData)
+    axiosInstance
+      .post("/api/organizerEvents", finalFormData)
       .then((res) => {
-        console.log(res.data,res,'this is res');
+        console.log(res.data, res, "this is res");
         // Handle success (e.g., show a success message, redirect)
         alert(`Event ${res.data.eventName} added successfully!`);
       })
@@ -505,14 +506,14 @@ const AddEventForm = () => {
             <button
               type="button"
               onClick={() =>
-                appendTicket({ type: "", price: "", availability: "" })
+                appendTicket({ type: "", price: "", availability: "", sold: 0 })
               }
               className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer mt-2"
             >
               Add Ticket
             </button>
           </div>
-        </div>
+        </div> 
 
         {/* add ticket field end */}
         <div className="flex justify-end ">
