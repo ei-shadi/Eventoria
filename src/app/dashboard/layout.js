@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }) {
     
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex w-9/12 flex-col min-h-screen">
         {/* Mobile Navbar */}
         <div
           className="lg:hidden flex items-center justify-between px-4 py-3 
@@ -42,7 +42,7 @@ export default function DashboardLayout({ children }) {
         </div>
 
         {/* Page Content */}
-        <main className="max-h-screen flex-1 p-4 text-gray-900 dark:text-gray-100 overflow-y-auto font-gabriela">
+        <main className="max-h-screen  flex-1 p-4 text-gray-900 dark:text-gray-100 overflow-y-auto font-gabriela">
           {children}
         </main>
       </div>

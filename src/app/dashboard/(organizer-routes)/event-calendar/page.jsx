@@ -1,14 +1,13 @@
-import EventCalendarShow from '@/components/Organizer/EventCalendar/Calendar';
+import EventCalendarShow from "@/components/Organizer/EventCalendar/EventCalendarShow";
+import React from "react";
 
-import React from 'react';
 
 const EventCalendar = () => {
-    return (
-        <div>
-           
-            <EventCalendarShow/>
-        </div>
-    );
+  return (
+    <div>
+      <EventCalendarShow/>
+    </div>
+  );
 };
 
 export default EventCalendar;

@@ -10,15 +10,18 @@ const Select = dynamic(() => import("react-select"), { ssr: false });
 
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
+import useAxios from "@/app/Hooks/useAxios";
 const AddEventForm = () => {
   const [eventCoverImage, setEventCoverImage] = useState("");
   const [previewUrl, setPreviewUrl] = useState(null);
   const { data: session } = useSession();
-  console.log(session, "this is session");
+  const axiosInstance = useAxios();
+
   const {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -30,7 +33,7 @@ const AddEventForm = () => {
       address: "",
       country: "",
       description: "",
-      tickets: [{ type: "", price: "", availability: "" }],
+      tickets: [{ type: "", price: "", availability: "", sold: 0 }],
     },
   });
   const {
@@ -60,6 +63,17 @@ const AddEventForm = () => {
     };
     console.log("this is full data", finalFormData);
     // Add API call to submit the form data
+    axiosInstance
+      .post("/api/organizerEvents", finalFormData)
+      .then((res) => {
+        console.log(res.data, res, "this is res");
+        // Handle success (e.g., show a success message, redirect)
+        alert(`Event ${res.data.eventName} added successfully!`);
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error (e.g., show an error message)
+      });
   };
   const handleImageUpload = async (e) => {
     const image = e.target.files[0];
@@ -86,7 +100,9 @@ const AddEventForm = () => {
       fileInput.value = "";
     }
   };
-
+  // 👉 watch দিয়ে startDateTime এর মান পাওয়া যাবে
+  const startDate = watch("startDateTime");
+  console.log(startDate);
   return (
     <div className="p-2 lg:p-6">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
@@ -170,6 +186,7 @@ const AddEventForm = () => {
                   {...register("startDateTime", {
                     required: "Start date & time is required",
                   })}
+                  min={new Date().toISOString().slice(0, 16)}
                   className="w-full p-2 border border-border rounded-md bg-background text-foreground dark:bg-gray-800"
                 />
                 {errors.startDateTime && (
@@ -187,6 +204,7 @@ const AddEventForm = () => {
                   {...register("endDateTime", {
                     required: "End date & time is required",
                   })}
+                  min={startDate}
                   className="w-full p-2 border border-border rounded-md bg-background text-foreground dark:bg-gray-800"
                 />
                 {errors.endDateTime && (
@@ -493,7 +511,7 @@ const AddEventForm = () => {
             <button
               type="button"
               onClick={() =>
-                appendTicket({ type: "", price: "", availability: "" })
+                appendTicket({ type: "", price: "", availability: "", sold: 0 })
               }
               className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer mt-2"
             >
