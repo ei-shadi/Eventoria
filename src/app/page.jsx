@@ -1,13 +1,43 @@
+import ClientsReview from "@/components/home/ClientsReview";
+import CTA from "@/components/home/CTA";
+import Faq from "@/components/home/Faq";
+import Features from "@/components/home/Features";
 import Hero from "@/components/home/Hero";
+import UpcomingEvents from "@/components/home/UpcomingEvents";
 
 
 const Home = () => {
   return (
     <>
       {/* Hero Section */}
-<Hero />
-{/*  */}
-{/* Faq Section */}
+      <section>
+        <Hero />
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 lg:py-[120px]">
+        <Features />
+      </section>
+      
+      {/* Upcoming Events Section */}
+      <section className="py-16 lg:py-[120px]">
+        <UpcomingEvents />
+      </section>
+      
+      {/* Clients Reviews Section */}
+      <section className="py-16 lg:py-[120px]">
+        <ClientsReview />
+      </section>
+      
+      {/* Faq Section */}
+      <section className="py-16 lg:py-[120px]">
+        <Faq />
+      </section>
+      
+      {/* CTA Section */}
+      <section className="py-16 lg:py-[120px]">
+        <CTA />
+      </section>
     </>
   );
 };
