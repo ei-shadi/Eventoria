@@ -21,6 +21,7 @@ const AddEventForm = () => {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -32,7 +33,7 @@ const AddEventForm = () => {
       address: "",
       country: "",
       description: "",
-      tickets: [{ type: "", price: "", availability: "",sold:0 }],
+      tickets: [{ type: "", price: "", availability: "", sold: 0 }],
     },
   });
   const {
@@ -99,7 +100,9 @@ const AddEventForm = () => {
       fileInput.value = "";
     }
   };
-
+  // 👉 watch দিয়ে startDateTime এর মান পাওয়া যাবে
+  const startDate = watch("startDateTime");
+  console.log(startDate);
   return (
     <div className="p-2 lg:p-6">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
@@ -183,6 +186,7 @@ const AddEventForm = () => {
                   {...register("startDateTime", {
                     required: "Start date & time is required",
                   })}
+                  min={new Date().toISOString().slice(0, 16)}
                   className="w-full p-2 border border-border rounded-md bg-background text-foreground dark:bg-gray-800"
                 />
                 {errors.startDateTime && (
@@ -200,6 +204,7 @@ const AddEventForm = () => {
                   {...register("endDateTime", {
                     required: "End date & time is required",
                   })}
+                  min={startDate}
                   className="w-full p-2 border border-border rounded-md bg-background text-foreground dark:bg-gray-800"
                 />
                 {errors.endDateTime && (
@@ -513,7 +518,7 @@ const AddEventForm = () => {
               Add Ticket
             </button>
           </div>
-        </div> 
+        </div>
 
         {/* add ticket field end */}
         <div className="flex justify-end ">
