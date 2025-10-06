@@ -1,10 +1,13 @@
 import { getDatabase } from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
-export async function GET(){
+export async function GET(req){
 
     const db = await getDatabase() ;
-    const result = await db.collection('events').find({}).toArray() ;
+    const { searchParams } = new URL(req.url) ;
+    const email = searchParams.get('email') ;
+    const result = await db.collection('events').find({organizerEmail : email}).toArray() ;
     return NextResponse.json(result) ;
 
 }
@@ -22,9 +25,9 @@ export async function DELETE(req){
 
     const { searchParams } = new URL(req.url) ;
     const email = searchParams.get('email') ;
-
+    const eventId = searchParams.get('eventId') ;
     const db = await getDatabase() ;
-    const result = await db.collection('events').deleteOne({organizerEmail : email}) ;
+    const result = await db.collection('events').deleteOne({organizerEmail : email, _id : new ObjectId(eventId)}) ;
     return NextResponse.json(result) ;
 
 }

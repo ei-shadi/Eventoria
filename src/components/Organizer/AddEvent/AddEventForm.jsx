@@ -10,11 +10,13 @@ const Select = dynamic(() => import("react-select"), { ssr: false });
 
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
+import useAxios from "@/app/Hooks/useAxios";
 const AddEventForm = () => {
   const [eventCoverImage, setEventCoverImage] = useState("");
   const [previewUrl, setPreviewUrl] = useState(null);
   const { data: session } = useSession();
-  console.log(session, "this is session");
+  const axiosInstance=useAxios()
+  
   const {
     register,
     handleSubmit,
@@ -60,6 +62,16 @@ const AddEventForm = () => {
     };
     console.log("this is full data", finalFormData);
     // Add API call to submit the form data
+    axiosInstance.post("/api/organizerEvents", finalFormData)
+      .then((res) => {
+        console.log(res.data,res,'this is res');
+        // Handle success (e.g., show a success message, redirect)
+        alert(`Event ${res.data.eventName} added successfully!`);
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error (e.g., show an error message)
+      });
   };
   const handleImageUpload = async (e) => {
     const image = e.target.files[0];

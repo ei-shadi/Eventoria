@@ -38,8 +38,8 @@ const dummyEvents = [
   {
     eventName: "Summer Music Festival",
     eventCategory: { value: "concert", label: "Concert" },
-    startDateTime: "2025-11-05T18:00",
-    endDateTime: "2025-11-05T22:00",
+    startDateTime: "2025-06-05T18:00",
+    endDateTime: "2025-09-05T22:00",
     venueName: "Madison Square Garden",
     address: "New York, USA",
     country: "USA",
