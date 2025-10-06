@@ -5,8 +5,9 @@ import { useForm, Controller, useFieldArray } from "react-hook-form";
 import Select from "react-select";
 import { IoMdClose } from "react-icons/io";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
 
-const EventUpdateForm = ({ defaultValues, onSubmit }) => {
+const EventUpdateForm = ({ defaultValues }) => {
   const {
     register,
     handleSubmit,
@@ -26,25 +27,49 @@ const EventUpdateForm = ({ defaultValues, onSubmit }) => {
     name: "tickets",
   });
 
-  const [previewUrl, setPreviewUrl] = useState(defaultValues?.coverImage || "");
+  const [updatedCoverImage, setUpdatedCoverImage] = useState(
+    defaultValues?.coverImage || ""
+  );
+
+  const [previewUrl, setPreviewUrl] = useState(defaultValues?.coverImage);
 
   // Handle Image Upload
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-        setValue("coverImage", reader.result);
-      };
-      reader.readAsDataURL(file);
+  const handleImageUpload = async (e) => {
+    const image = e.target.files[0];
+    if (image) {
+      setPreviewUrl(URL.createObjectURL(image));
     }
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const imagUploadUrl = `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_KEY}`;
+
+    const res = await axios.post(imagUploadUrl, formData);
+    setUpdatedCoverImage(res.data.data.url);
   };
 
   const handleRemoveImage = () => {
-    setPreviewUrl("");
-    setValue("coverImage", "");
+    setPreviewUrl(null);
+    setEventCoverImage("");
+    // Reset the file input
+    const fileInput = document.querySelector(
+      'input[type="file"][name="photo"]'
+    );
+    if (fileInput) {
+      fileInput.value = "";
+    }
   };
+
+  //updating event start
+  const onSubmit = (data) => {
+    const updatedEventData = {
+      ...data,
+      coverImage: updatedCoverImage,
+    };
+    console.log("this is full data", updatedEventData);
+    // Add API call to submit the form and update event
+  };
+  //updating event ends
 
   // Dynamic categories from defaultValues
   const eventCategories = defaultValues?.eventCategory
@@ -366,8 +391,8 @@ const EventUpdateForm = ({ defaultValues, onSubmit }) => {
         </div>
       </div>
 
-      <div className="flex justify-end">
-        <Button type="submit" className="px-6 py-2 w-full lg:w-auto">
+      <div className="flex justify-center">
+        <Button type="submit" className="px-6 py-2 w-full lg:w-9/12">
           Update Event
         </Button>
       </div>

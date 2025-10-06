@@ -31,3 +31,12 @@ export async function DELETE(req){
     return NextResponse.json(result) ;
 
 }
+
+
+
+// updating an event
+
+
+
+
+
