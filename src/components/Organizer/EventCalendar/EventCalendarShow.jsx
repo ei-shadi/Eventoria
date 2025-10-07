@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Calendar, dateFnsLocalizer, Views } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { format, parse, startOfWeek, getDay } from "date-fns";
@@ -41,6 +41,9 @@ const EventCalendarShow = () => {
   const { data: session } = useSession();
   const email = session?.user?.email;
 
+  const [currentDate, setCurrentDate] = useState(new Date()); // controlled current date
+  const [currentView, setCurrentView] = useState(Views.MONTH); // controlled view
+
   // fetch data
   const {
     data: myEventsData = [],
@@ -55,18 +58,18 @@ const EventCalendarShow = () => {
       );
       return res.data;
     },
-    enabled: !!email, // email থাকলে ফেচ হবে
+    enabled: !!email,
   });
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  // calendar show
+  // calendar events
   const events = myEventsData.map(convertFormEventToCalendarEvent);
 
   // ইভেন্ট কালারিং
   const eventStyleGetter = (event) => {
-    let bg = "#2b7fff dark:bg-[#1f8eb7]"; // default red
+    let bg = "#2b7fff"; // default blue
     if (event.category === "Concert") bg = "#1f8eb7";
     else if (event.category === "Seminar") bg = "#34d399";
     else if (event.category === "Conference") bg = "#fbbf24";
@@ -77,7 +80,7 @@ const EventCalendarShow = () => {
     return {
       style: {
         backgroundColor: bg,
-        color: "#fff ",
+        color: "#fff",
         borderRadius: "5px",
         padding: "2px 5px",
         fontSize: "0.85rem",
@@ -111,12 +114,15 @@ const EventCalendarShow = () => {
         startAccessor="start"
         endAccessor="end"
         style={{ height: 600 }}
-        
         eventPropGetter={eventStyleGetter}
         views={[Views.MONTH, Views.WEEK, Views.DAY]}
         components={{
           event: EventRenderer,
         }}
+        date={currentDate}                   // controlled date
+        view={currentView}                   // controlled view
+        onNavigate={(date) => setCurrentDate(date)} // next/prev month handle
+        onView={(view) => setCurrentView(view)}     // change view
       />
     </div>
   );

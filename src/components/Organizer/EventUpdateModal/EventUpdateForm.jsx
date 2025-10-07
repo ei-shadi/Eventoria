@@ -65,7 +65,14 @@ const EventUpdateForm = ({ defaultValues }) => {
       fileInput.value = "";
     }
   };
-
+const eventCategories = [
+    { value: "conference", label: "Conference" },
+    { value: "workshop", label: "Workshop" },
+    { value: "concert", label: "Concert" },
+    { value: "exhibition", label: "Exhibition" },
+    { value: "seminar", label: "Seminar" },
+    { value: "other", label: "Other" },
+  ];
   // TanStack mutation for updating event
   const updateEventMutation = useMutation({
     mutationFn: async ({ eventId, updatedEventData }) => {
@@ -96,10 +103,7 @@ const EventUpdateForm = ({ defaultValues }) => {
   };
   //updating event ends
 
-  // Dynamic categories from defaultValues
-  const eventCategories = defaultValues?.eventCategory
-    ? [defaultValues.eventCategory]
-    : [];
+ 
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 ">
