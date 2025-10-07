@@ -28,7 +28,7 @@ const EventCardList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleEditClick = (event) => {
-    setSelectedEvent(event); // যেই event edit করতে চাও
+    setSelectedEvent(event); 
     setIsModalOpen(true);    // modal open
   };
   const {

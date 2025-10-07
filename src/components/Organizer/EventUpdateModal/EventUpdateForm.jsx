@@ -10,9 +10,9 @@ import useAxios from "@/app/Hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const EventUpdateForm = ({ defaultValues }) => {
-  const axiosInstance=useAxios()
-  const eventId=defaultValues._id
-    const queryClient = useQueryClient();
+  const axiosInstance = useAxios();
+  const eventId = defaultValues._id;
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -66,7 +66,6 @@ const EventUpdateForm = ({ defaultValues }) => {
     }
   };
 
-
   // TanStack mutation for updating event
   const updateEventMutation = useMutation({
     mutationFn: async ({ eventId, updatedEventData }) => {
@@ -75,7 +74,7 @@ const EventUpdateForm = ({ defaultValues }) => {
         updatedEventData
       );
       return res.data;
-    }, 
+    },
     onSuccess: () => {
       alert("Event updated successfully!");
       queryClient.invalidateQueries(["organizerEvents"]); // Refetch the events list
@@ -84,11 +83,6 @@ const EventUpdateForm = ({ defaultValues }) => {
       alert("Error updating event: " + error.message);
     },
   });
-
-
-
-
-
 
   //updating event start
   const onSubmit = async (data) => {
