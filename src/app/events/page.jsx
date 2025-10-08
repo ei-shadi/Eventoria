@@ -60,7 +60,7 @@ const AllEvents = () => {
   return (
     <section className="pt-[104px] min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-[#00C4CC] to-[#4A00E0] text-white text-center py-10 lg:py-20">
+      <div className="bg-gradient-to-r from-[#8FDA20] to-[#4A00E0] text-white text-center py-10 lg:py-20">
         <h1 className="text-3xl md:text-5xl font-bold mb-3">All Events</h1>
         <p className="text-sm md:text-base opacity-90">
           Explore and discover all upcoming approved events
@@ -68,7 +68,7 @@ const AllEvents = () => {
       </div>
 
       {/* Filter Section */}
-      <div className="max-w-6xl mx-auto px-4 py-10">
+      <div className="container mx-auto px-4 py-10">
         <div className="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center justify-between">
           {/* Search Field */}
           <div className="w-full md:w-1/2">
@@ -80,7 +80,7 @@ const AllEvents = () => {
               placeholder="Search by event name..."
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-[#4A00E0] outline-none bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white"
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-[#8FDA20] outline-none bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white"
             />
           </div>
 
@@ -140,7 +140,7 @@ const AllEvents = () => {
 
                   {/* Date */}
                   <div className="flex items-center text-gray-600 dark:text-gray-300 text-sm mb-1">
-                    <FaCalendarAlt className="mr-2 text-[#4A00E0]" />
+                    <FaCalendarAlt className="mr-2 text-[#8FDA20] dark:text-[#8FDA20]" />
                     <span>
                       {`${format(
                         new Date(event.startDateTime),
@@ -154,13 +154,13 @@ const AllEvents = () => {
 
                   {/* Category */}
                   <div className="flex items-center text-gray-600 dark:text-gray-300 text-sm mb-1">
-                    <FaTag className="mr-2 text-[#4A00E0]" />
+                    <FaTag className="mr-2 text-[#8FDA20] dark:text-[#8FDA20]" />
                     <span>{event.eventCategory?.label || "N/A"}</span>
                   </div>
 
                   {/* Location */}
                   <div className="flex items-center text-gray-600 dark:text-gray-300 text-sm mb-3">
-                    <FaMapMarkerAlt className="mr-2 text-[#4A00E0]" />
+                    <FaMapMarkerAlt className="mr-2 text-[#8FDA20] dark:text-[#8FDA20]" />
                     <span>
                       {event.venueName}, {event.country}
                     </span>
@@ -168,10 +168,10 @@ const AllEvents = () => {
 
                   {/* Buttons */}
                   <div className="mt-auto flex gap-3">
-                    <button className="w-1/2 bg-[#4A00E0] hover:bg-[#3a00b5] text-white font-medium py-2 rounded-lg transition-all">
+                    <button className="w-1/2 bg-[#8FDA20] hover:bg-[#7ac61b] text-white font-medium py-2 rounded-lg transition-all">
                       View Event
                     </button>
-                    <button className="w-1/2 border border-[#4A00E0] text-[#4A00E0] hover:bg-[#4A00E0] hover:text-white font-medium py-2 rounded-lg transition-all">
+                    <button className="w-1/2 border border-[#8FDA20] text-[#8FDA20] dark:text-[#8FDA20] hover:bg-[#8FDA20] hover:text-white font-medium py-2 rounded-lg transition-all">
                       Buy Tickets
                     </button>
                   </div>
