@@ -73,7 +73,7 @@ const AllEvents = () => {
           {/* Search Field */}
           <div className="w-full md:w-1/2">
             <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-              Search Event
+              Search Event here
             </label>
             <input
               type="text"
@@ -99,7 +99,7 @@ const AllEvents = () => {
               styles={{
                 control: (base) => ({
                   ...base,
-                  backgroundColor: "#f9fafb",
+                  backgroundColor: "#f9fafb dark:bg-gray-900",
                   borderColor: "#d1d5db",
                   borderRadius: "0.5rem",
                   padding: "2px",
