@@ -25,9 +25,15 @@ export async function PUT(req) {
   const id = searchParams.get("eventId");
   const data = await req.json();
 
+    // 🧹 Remove _id if present in request body
+  if (data._id) {
+    delete data._id;
+  }
+
   const result = await db
     .collection("events")
-    .updateOne({ eventId: id }, { $set: data });
+    .updateOne({ _id: new ObjectId(id) }, { $set: data });
+
   return NextResponse.json(result);
 }
 
@@ -41,7 +47,3 @@ export async function DELETE(req) {
     .deleteOne({ organizerEmail: email, _id: new ObjectId(eventId) });
   return NextResponse.json(result);
 }
-
-// updating an event
-
-//ticket stat aggregrate api

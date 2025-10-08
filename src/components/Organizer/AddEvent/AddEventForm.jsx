@@ -61,14 +61,13 @@ const AddEventForm = () => {
       approvalStatus: "pending",
       eventStatus: "live",
     };
-    console.log("this is full data", finalFormData);
+
     // Add API call to submit the form data
     axiosInstance
       .post("/api/organizerEvents", finalFormData)
       .then((res) => {
-        console.log(res.data, res, "this is res");
         // Handle success (e.g., show a success message, redirect)
-        alert(`Event ${res.data.eventName} added successfully!`);
+        alert(`Event ${res} added successfully!`);
       })
       .catch((error) => {
         console.error(error);

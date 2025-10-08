@@ -6,8 +6,14 @@ import Select from "react-select";
 import { IoMdClose } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import useAxios from "@/app/Hooks/useAxios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const EventUpdateForm = ({ defaultValues }) => {
+  const axiosInstance = useAxios();
+  const eventId = defaultValues._id;
+  const queryClient = useQueryClient();
+
   const {
     register,
     handleSubmit,
@@ -59,22 +65,45 @@ const EventUpdateForm = ({ defaultValues }) => {
       fileInput.value = "";
     }
   };
+const eventCategories = [
+    { value: "conference", label: "Conference" },
+    { value: "workshop", label: "Workshop" },
+    { value: "concert", label: "Concert" },
+    { value: "exhibition", label: "Exhibition" },
+    { value: "seminar", label: "Seminar" },
+    { value: "other", label: "Other" },
+  ];
+  // TanStack mutation for updating event
+  const updateEventMutation = useMutation({
+    mutationFn: async ({ eventId, updatedEventData }) => {
+      const res = await axiosInstance.put(
+        `/api/organizerEvents?eventId=${eventId}`,
+        updatedEventData
+      );
+      return res.data;
+    },
+    onSuccess: () => {
+      alert("Event updated successfully!");
+      queryClient.invalidateQueries(["organizerEvents"]); // Refetch the events list
+    },
+    onError: (error) => {
+      alert("Error updating event: " + error.message);
+    },
+  });
 
   //updating event start
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const updatedEventData = {
       ...data,
       coverImage: updatedCoverImage,
     };
     console.log("this is full data", updatedEventData);
     // Add API call to submit the form and update event
+    updateEventMutation.mutate({ eventId, updatedEventData });
   };
   //updating event ends
 
-  // Dynamic categories from defaultValues
-  const eventCategories = defaultValues?.eventCategory
-    ? [defaultValues.eventCategory]
-    : [];
+ 
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 ">
