@@ -28,7 +28,7 @@ const EventCardList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleEditClick = (event) => {
-    setSelectedEvent(event); // যেই event edit করতে চাও
+    setSelectedEvent(event); 
     setIsModalOpen(true);    // modal open
   };
   const {
@@ -50,7 +50,7 @@ const EventCardList = () => {
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  console.log(myEventsData);
+  
   const handleEventDelete = async (eventId) => {
     try {
       const res = await axiosInstance.delete(
