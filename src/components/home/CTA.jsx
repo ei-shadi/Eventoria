@@ -8,7 +8,7 @@ import Button from "../shared/Button";
 const CTA = () => {
   return (
     <section
-      className="bg-black border-[#ADFF30] border-4 text-white py-10 text-center rounded-3xl shadow-2xl overflow-hidden w-[90%] md:w-[85%] 2xl:w-7xl mx-auto">
+      className="bg-black dark:bg-white dark:text-black border-[#ADFF30] border-4 text-white py-10 text-center rounded-3xl shadow-2xl overflow-hidden w-[90%] md:w-[85%] 2xl:w-7xl mx-auto">
       <div className="max-w-3xl mx-auto flex flex-col items-center gap-4 z-10">
         {/* Logo */}
         <Image
@@ -19,11 +19,11 @@ const CTA = () => {
 
         {/* Icon + Heading in one row */}
           <h2 className="text-3xl md:text-4xl font-bold leading-snug">
-            Ready to Make Your <span className="text-[#ADFF30]">Event Unforgettable</span>?
+            Ready to Make Your <span className="text-[#ADFF30] dark:text-[#8fda20]">Event Unforgettable</span>?
           </h2>
 
         {/* Subtext */}
-        <p className="text-lg text-gray-400 max-w-xl mt-2">
+        <p className="text-lg text-gray-400 dark:text-gray-500 max-w-xl mt-2">
           Eventoria helps you plan, manage, and celebrate your events with ease.  
           From weddings to corporate gatherings — we handle everything.
         </p>
