@@ -14,7 +14,7 @@ import EventUpdateForm from "./EventUpdateForm";
 
 const EventUpdateModal = ({ isOpen, onClose, defaultValues }) => {
   
-console.log(defaultValues,'from event modal update modal')
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="w-full max-w-[100vw] sm:max-w-3xl lg:max-w-7xl overflow-y-auto max-h-[90vh]">
