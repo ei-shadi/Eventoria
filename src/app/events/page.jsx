@@ -58,7 +58,7 @@ const AllEvents = () => {
     );
 
   return (
-    <section className="pt-[104px] min-h-screen bg-gray-50 dark:bg-gray-900">
+    <section className="pt-[104px] min-h-screen bg-gray-50 dark:bg-black">
       {/* Header Section */}
       <div className="bg-gradient-to-r from-[#8FDA20] to-[#4A00E0] text-white text-center py-10 lg:py-20">
         <h1 className="text-3xl md:text-5xl font-bold mb-3">All Events</h1>

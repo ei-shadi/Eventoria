@@ -20,14 +20,14 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center px-4 flex flex-col items-center">
         {/* Hero Animation */}
-        <div className="absolute top-45 lg:top-48 xl:top-52 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute top-[25%] md:top-[23%] lg:top-[30%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
 
           <HeroAnimation />
         </div>
 
         {/* Headline */}
-        <h1 className="max-[400px]:text-3xl text-4xl md:text-5xl xl:text-6xl font-extrabold leading-tight pt-76 lg:pt-[350px] xl:pt-[380px]">
-          Host Events That Inspire,<br /> Plan. Host. Celebrate — All in One Place.
+        <h1 className="max-[400px]:text-3xl text-4xl md:text-5xl xl:text-6xl font-extrabold leading-tight pt-72 lg:pt-[350px] xl:pt-[380px]">
+          Host <span className="text-[#ADFF30]">Events</span> That Inspire,<br /> <span className="text-[#ADFF30]">Plan</span>, <span className="text-[#ADFF30]">Host</span>, <span className="text-[#ADFF30]">Celebrate</span> — All in <span className="text-[#ADFF30]">One</span> Place.
         </h1>
 
         {/* Subtext */}
@@ -36,22 +36,16 @@ const Hero = () => {
         </p>
 
         {/* Buttons */}
-        <div className="mt-4 md:mt-8 flex flex-col sm:flex-row gap-4 px-10 md:px-0 justify-center">
+        <Link href="/events" className="mt-4 md:mt-8">
           <Button
-            label="Create Your Event"
+            label="Explore Events"
             bgColor="#ADFF30"
             textColor="black"
             hoverBg="black"
             hoverText="white"
             hoverBorder="#ADFF30"
-            borderColor="black"
-          />
-          <Link href="/events">
-            <button className="border-2 border-white text-white hover:bg-white hover:text-black text-lg font-extrabold px-10 py-3 rounded-full transition cursor-pointer">
-              Explore Events
-            </button>
-          </Link>
-        </div>
+            borderColor="black"/>
+        </Link>
       </div>
     </section>
   );
