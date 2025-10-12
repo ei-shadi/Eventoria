@@ -15,27 +15,27 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 lg:py-[120px]">
+      <section className="py-16 lg:py-[100px]">
         <Features />
       </section>
       
       {/* Upcoming Events Section */}
-      <section className="py-16 lg:py-[120px]">
+      <section className="py-16 lg:py-[100px]">
         <UpcomingEvents />
       </section>
       
       {/* Clients Reviews Section */}
-      <section className="py-16 lg:py-[120px]">
+      <section className="py-16 lg:py-[100px]">
         <ClientsReview />
       </section>
       
       {/* Faq Section */}
-      <section className="py-16 lg:py-[120px]">
+      <section className="py-16 lg:py-[100px]">
         <Faq />
       </section>
       
       {/* CTA Section */}
-      <section className="py-16 lg:py-[120px]">
+      <section className="py-16 lg:py-[100px]">
         <CTA />
       </section>
     </>

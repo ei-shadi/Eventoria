@@ -8,7 +8,7 @@ import Button from "../shared/Button";
 const CTA = () => {
   return (
     <section
-      className="bg-black dark:bg-white dark:text-black border-[#ADFF30] border-4 text-white py-10 text-center rounded-3xl shadow-2xl overflow-hidden w-[90%] md:w-[85%] 2xl:w-7xl mx-auto">
+      className="bg-black dark:bg-white dark:text-black border-[#ADFF30] border-4 text-white py-10 text-center rounded-3xl shadow-2xl overflow-hidden w-[90%] md:w-[85%] 2xl:w-8xl mx-auto">
       <div className="max-w-3xl mx-auto flex flex-col items-center gap-4 z-10">
         {/* Logo */}
         <Image

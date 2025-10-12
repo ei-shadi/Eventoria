@@ -100,11 +100,11 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         path: "/dashboard/attendee-management",
         icon: <FaUsers />,
       },
-      {
-        name: "Reviews & Ratings",
-        path: "/dashboard/review-ratings",
-        icon: <MdReviews />,
-      },
+      // {
+      //   name: "Reviews & Ratings",
+      //   path: "/dashboard/review-ratings",
+      //   icon: <MdReviews />,
+      // },
       {
         name: "Profile Settings",
         path: "/dashboard/profile-settings",
