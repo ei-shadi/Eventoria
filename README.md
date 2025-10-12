@@ -1,36 +1,172 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+<div align="center">
+  <h1>
+    <a href="https://eventoria-live.netlify.app/" target="_blank" rel="noopener noreferrer">
+      🎉➡️ <strong>Eventoria</strong>
+    </a>
+  </h1>
+  <p><strong>Team-based Event Management System (Eventoria) for organizing and attending events.</strong></p>
+  <p>Create & manage events, book tickets online, check-in via QR codes, and track reviews & ratings with team dashboards and NextAuth authentication.</p>
+</div>
 
-First, run the development server:
+---
 
+<h2 align="center">📷 Interface Snapshots</h2>
+
+<div align="center">
+  <img src="https://i.ibb.co/yourimage/Eventoria.png" alt="Eventoria Screenshot" width="700" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+</div>
+
+---
+
+<h2 align="center">✨ Project Overview</h2>
+
+**Eventoria** is a collaborative event management platform built by a 4-member team. It allows users to create events, book tickets online, manage event check-ins, view event calendars, and provide reviews & ratings. The system includes a dashboard for organizers and integrates modern web technologies for smooth UX and secure authentication.  
+
+---
+
+<h2 align="center">🚀 Features</h2>
+
+* 🎫 **Event Creation & Management** — Organizers can create, update, and delete events  
+* 🖥️ **Organizer Dashboard** — View bookings, check-in stats, and manage attendees  
+* 🔑 **NextAuth Authentication** — Secure login/signup  
+* 💳 **Online Ticket Booking** — Ticket purchase with booking confirmation  
+* 📱 **QR Code Check-in** — Easy attendee verification  
+* 📅 **Event Calendar View** — Browse upcoming events  
+* ⭐ **Review & Rating System** — Feedback for events  
+* ⚡ **Realtime Feedback & Animations** — Using Framer Motion  
+* 💻 **Responsive Design** — Fully responsive UI with Tailwind CSS  
+
+---
+
+<h2 align="center">🤖 Tech Stack</h2>
+
+<table align="center">
+  <tr>
+    <th>🛠️ Technology</th>
+    <th>💡 Purpose</th>
+  </tr>
+  <tr>
+    <td>⚛ <strong>Next.js</strong></td>
+    <td>Frontend framework & SSR</td>
+  </tr>
+  <tr>
+    <td>🎨 <strong>Tailwind CSS</strong></td>
+    <td>Styling & Responsive Layout</td>
+  </tr>
+  <tr>
+    <td>🔐 <strong>NextAuth</strong></td>
+    <td>Authentication & Security</td>
+  </tr>
+  <tr>
+    <td>🍃 <strong>MongoDB</strong></td>
+    <td>Database for events & users</td>
+  </tr>
+  <tr>
+    <td>🧭 <strong>Axios</strong></td>
+    <td>API Requests</td>
+  </tr>
+  <tr>
+    <td>🧰 <strong>TanStack Query</strong></td>
+    <td>Data Fetching & Caching</td>
+  </tr>
+  <tr>
+    <td>🎯 <strong>Framer Motion</strong></td>
+    <td>Animations & Transitions</td>
+  </tr>
+  <tr>
+    <td>🎨 <strong>React Icons</strong></td>
+    <td>Icons for UI</td>
+  </tr>
+</table>
+
+---
+
+<h2 align="center">👥 Team Members</h2>
+
+- **Eftajul Islam Shadi (Leader)**  
+- **Md Khalid Hossain (Co-Leader)**  
+- **Md Mahmudul Hasan Nayem**  
+- **Thaqi Ul Islam Kafi**   
+
+---
+
+<h2 align="center">🌐 Live Site</h2>
+
+🎯 **Visit Live:**  
+👉 <a href="https://eventoria-live.netlify.app/" target="_blank" rel="noopener noreferrer">Open Eventoria Now...</a>  
+
+---
+
+<h2 align="center">⚙️ Installation & Setup</h2>
+
+1. **Clone The Repository For Frontend:**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/ei-shadi/Eventoria.git
+cd eventoria
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Configure environment variables:**  
+Create a `.env` file inside `/server` folder with:
+```
+MONGODB_URI=your_mongodb_uri
+NEXTAUTH_SECRET=your_nextauth_secret
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+4. **👀 Start the project:**
+```bash
+cd eventoria         # frontend
+npm run dev
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+<div align="center">
 
-To learn more about Next.js, take a look at the following resources:
+<h2>📦 API Endpoints (Express + MongoDB + NextAuth)</h2>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GET</td>
+      <td><code>/events</code></td>
+      <td>Get all events</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/events/:id</code></td>
+      <td>Get single event details</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/users?email=</code></td>
+      <td>Get user info by email</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td><code>/events</code>, <code>/bookings</code>, <code>/reviews</code></td>
+      <td>Create event, booking, or review</td>
+    </tr>
+    <tr>
+      <td>PATCH</td>
+      <td><code>/events/:id</code>, <code>/bookings/:id</code></td>
+      <td>Update event or booking</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td><code>/events/:id</code>, <code>/bookings/:id</code></td>
+      <td>Delete event or booking</td>
+    </tr>
+  </tbody>
+</table>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<p>🔐 <strong>Note:</strong> Protected routes require NextAuth authentication tokens.</p>
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</div>
