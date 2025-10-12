@@ -32,12 +32,12 @@ export function ModeToggle() {
     >
       <Sun
         className={`absolute h-5 w-5 transition-all duration-300 ${
-          isDark ? "scale-0 rotate-90" : "scale-100 rotate-0"
+          isDark ? "scale-0 rotate-90" : "scale-100 rotate-0 text-black"
         }`}
       />
       <Moon
         className={`absolute h-5 w-5 transition-all duration-300 ${
-          isDark ? "scale-100 rotate-0" : "scale-0 -rotate-90"
+          isDark ? "scale-100 rotate-0 " : "scale-0 -rotate-90"
         }`}
       />
       <span className="sr-only">Toggle theme</span>

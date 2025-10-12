@@ -61,8 +61,8 @@ const Navbar = () => {
   }, [isMenuOpen, mounted]);
 
   const navbarBgClass = isScrolled
-    ? "bg-black/50 dark:bg-black/30 backdrop-blur-md"
-    : "bg-transparent";
+    ? "bg-black/70 dark:bg-black/30 backdrop-blur-md text-white"
+    : "bg-transparent text-black dark:text-white";
 
   return (
     <nav>
@@ -74,9 +74,16 @@ const Navbar = () => {
             {/* Logo */}
             <Link href="/" className="inline-flex items-center">
               <Image src={Logo} alt="logo" className="w-18" />
-              <h3 className="ml-2 text-2xl md:text-3xl font-bold tracking-wide text-white dark:text-white font-gabriela">
+              <h3
+                className="ml-2 text-2xl md:text-3xl font-bold tracking-wide font-gabriela bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(to right, #A855F7, #3B82F6, #EF4444, #F97316, #FACC15, #22C55E)",
+                }}
+              >
                 Eventoria
               </h3>
+
             </Link>
 
             {/* Desktop Menu */}
@@ -85,11 +92,10 @@ const Navbar = () => {
                 <li key={link.name}>
                   <Link
                     href={link.path}
-                    className={`flex items-center gap-2 transition-colors ${
-                      pathname === link.path
+                    className={`flex items-center gap-2 transition-colors ${pathname === link.path
                         ? "font-bold text-headline text-xl xl:text-2xl"
                         : "text-gray-400 dark:text-gray-400 xl:text-lg font-semibold hover:text-[#ADFF30] dark:hover:text-[#738E54]"
-                    }`}
+                      }`}
                   >
                     <link.icon className="w-6 h-6" />
                     {link.name}
@@ -143,10 +149,10 @@ const Navbar = () => {
               <button
                 aria-label="Open Menu"
                 title="Open Menu"
-                className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition bg-black"
                 onClick={() => setIsMenuOpen(true)}
               >
-                <FaBars className="w-7 h-7 text-gray-800 dark:text-gray-200" />
+                <FaBars className="w-7 h-7 text-white " />
               </button>
             </div>
           </div>
@@ -217,11 +223,10 @@ function MobileMenuPortal({ navLinks, session, pathname, onClose, onSignOut }) {
               <Link
                 key={link.name}
                 href={link.path}
-                className={`flex items-center gap-2 justify-center w-fit px-6 py-2 font-bold text-xl rounded-full transition ${
-                  isActive
+                className={`flex items-center gap-2 justify-center w-fit px-6 py-2 font-bold text-xl rounded-full transition ${isActive
                     ? "bg-black text-[#8fda20] border-4 border-[#8fda20]"
                     : "text-gray-700 dark:text-gray-400 hover:text-[#738E54] dark:hover:text-[#738E54]"
-                }`}
+                  }`}
                 onClick={onClose}
               >
                 <link.icon className="w-5 h-5" />
