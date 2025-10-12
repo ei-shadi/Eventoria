@@ -138,12 +138,12 @@ const Contact = () => {
               ready to assist you wherever you are! 🇧🇩
             </p>
             <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg">
-              Visit our head office or explore our partner hubs nationwide.
+              Visit our head office or explore our partner hubs nationwide.Join us Now!
             </p>
           </div>
 
           {/* Right Side Map */}
-          <div className="rounded-2xl overflow-hidden shadow-lg border border-[#adff30]/40 h-[450px]">
+          <div className="rounded-2xl overflow-hidden shadow-lg border border-[#adff30]/40 h-[400px] lg:h-[450px]">
             <iframe
               title="Bangladesh Map"
               src="https://www.google.com/maps?q=Bangladesh&z=6&output=embed"
