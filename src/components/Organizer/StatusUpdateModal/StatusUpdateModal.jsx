@@ -38,7 +38,7 @@ const StatusUpdateModal = ({ children,eventId,refetchStatus }) => {
         </DialogHeader>
 
         <div className="flex flex-wrap gap-3 mt-4">
-          <button onClick={() => handleUpdateStatus("Live-Now")} className="px-3 py-1 bg-green-500 text-white rounded cursor-pointer hover:bg-green-600">
+          <button onClick={() => handleUpdateStatus("Live-Now")} className="px-3 py-1 bg-green-600 text-white rounded cursor-pointer hover:bg-green-900">
             Live Now
           </button>
           <button onClick={() => handleUpdateStatus("Completed")} className="px-3 py-1 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600">

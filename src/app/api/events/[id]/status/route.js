@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import { getDatabase } from "@/lib/mongodb";
 
-// ✅ PATCH /api/events/[id]/status
+// PATCH /api/events/[id]/status
 export async function PATCH(req, context) {
   try {
-    // ✅ params async হওয়ায় await করতে হবে
+   
     const { id } = await context.params;
 
     const db = await getDatabase();
@@ -13,7 +13,7 @@ export async function PATCH(req, context) {
 
     console.log("Received ID:", id, "New Status:", status);
 
-    // ✅ Validation checks
+    // Validation checks
     if (!id) {
       return NextResponse.json(
         { error: "Event ID is missing" },
@@ -35,7 +35,7 @@ export async function PATCH(req, context) {
       );
     }
 
-    // ✅ Update event status
+    // Update event status
     const result = await db.collection("events").updateOne(
       { _id: new ObjectId(id) },
       { $set: { eventStatus: status } }
