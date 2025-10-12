@@ -55,13 +55,15 @@ export default function Faq() {
   return (
     <section className="max-w-5xl mx-auto px-6">
       <div className="text-center mb-10">
-        <div className="flex items-center justify-center gap-2 mb-3">
-          <h2 className="text-4xl lg:text-5xl font-bold">
+        <div className="flex items-center justify-center gap-2 mb-3 flex-wrap sm:flex-nowrap">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold ">
             Frequently Asked{" "}
-            <span className="text-[#8fda20] dark:text-[#ADFF30]">Questions</span>
           </h2>
-          <FaQuestion className="text-[#8fda20] text-4xl shrink-0" />
+          <h2 className="text-[#8fda20] dark:text-[#ADFF30] text-3xl sm:text-4xl lg:text-5xl font-bold">Questions</h2>
+          <FaQuestion className="text-[#8fda20] text-3xl md:text-4xl shrink-0" />
         </div>
+
+
         <p className="text-muted-foreground text-sm md:text-lg mt-2">
           Everything you need to know about planning and managing your event with Eventoria.
         </p>
