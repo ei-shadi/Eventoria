@@ -121,52 +121,16 @@ npm run dev
 
 ---
 
-<div align="center">
+## 📦 API Endpoints (Express + MongoDB + NextAuth)
 
-<h2>📦 API Endpoints (Express + MongoDB + NextAuth)</h2>
+| Method | Endpoint | Description |
+|--------|---------|-------------|
+| GET    | `/events` | Get all events |
+| GET    | `/events/:id` | Get single event details |
+| GET    | `/users?email=` | Get user info by email |
+| POST   | `/events`, `/bookings`, `/reviews` | Create event, booking, or review |
+| PATCH  | `/events/:id`, `/bookings/:id` | Update event or booking |
+| DELETE | `/events/:id`, `/bookings/:id` | Delete event or booking |
 
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GET</td>
-      <td><code>/events</code></td>
-      <td>Get all events</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/events/:id</code></td>
-      <td>Get single event details</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/users?email=</code></td>
-      <td>Get user info by email</td>
-    </tr>
-    <tr>
-      <td>POST</td>
-      <td><code>/events</code>, <code>/bookings</code>, <code>/reviews</code></td>
-      <td>Create event, booking, or review</td>
-    </tr>
-    <tr>
-      <td>PATCH</td>
-      <td><code>/events/:id</code>, <code>/bookings/:id</code></td>
-      <td>Update event or booking</td>
-    </tr>
-    <tr>
-      <td>DELETE</td>
-      <td><code>/events/:id</code>, <code>/bookings/:id</code></td>
-      <td>Delete event or booking</td>
-    </tr>
-  </tbody>
-</table>
+**🔐 Note:** Protected routes require NextAuth authentication tokens.
 
-<p>🔐 <strong>Note:</strong> Protected routes require NextAuth authentication tokens.</p>
-
-</div>
