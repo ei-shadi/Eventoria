@@ -121,7 +121,7 @@ npm run dev
 
 ---
 
-## 📦 API Endpoints (Express + MongoDB + NextAuth)
+<h2 align="center">📦 API Endpoints (NextAuth + MongoDB)</h2>
 
 | Method | Endpoint | Description |
 |--------|---------|-------------|
